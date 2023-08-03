@@ -1,15 +1,14 @@
-import React from "react";
+import { useState, useContext } from "react";
 import NavLinks from "./NavLinks.js";
-import MobileNavMenu from "./MobileNavMenu.js";
 import { useNavigate } from 'react-router-dom';
 import UserContext from "../context/UserProvider";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { MdClose } from "react-icons/md"
 
 function Navbar () {
-    const navigate = useNavigate();
-    const { user, setUser } = React.useContext(UserContext);
-    const [menuToggle, setMenuToggle] = React.useState(false);
-    const [hamburgerClass, setHamburgerClass] = React.useState('hamburgerMenu');
-    const [menuClass, setMenuClass] = React.useState('mobileMenu hide');
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
+  const [menuToggle, setMenuToggle] = useState(false);
   
   const handleLogout =  async () => {
     try{
@@ -34,36 +33,32 @@ function Navbar () {
       }
     }
 
-  const menuClick = (e) => {
-    e.preventDefault();
-    console.log('click');
-    if (menuToggle) {
-      setHamburgerClass('hamburgerMenu is-active');
-      setMenuClass('mobileMenu visible');
-    }else {
-      setHamburgerClass('hamburgerMenu');
-      setMenuClass('mobileMenu hide');
-    }
-    setMenuToggle(!menuToggle);
-    
+  const menuClick = () => {
+    setMenuToggle(menuToggle ? false : true)
   }
 
     return (
-      <div>
-        <nav className="navbar">
-            <header className="header">
-                <img className="logo" src="../images/MASLogo.jpg" />
-                <h1 className="pageTitle" >Mass All-Starz</h1>
-            </header>
-            <div className="navLinks"><NavLinks user={user} handleLogout={handleLogout} /></div>
-            
-            <button type="button" className={hamburgerClass} onClick={menuClick}><div className="bar" ></div></button>
-        </nav>
-        <div className="mobileSideMenu">
-          <MobileNavMenu menuClass={menuClass} />
+      <>
+        <div className="w-full h-24 bg-logoRed px-4 flex justify-between items-center">
+          <div className="h-full" onClick={() => navigate("/")}>
+            <img className=" max-h-full" src="../images/MASLogo.jpg"/>
+          </div>
+          <ul className="hidden sm:flex gap-4">
+            <NavLinks user={user} handleLogout={handleLogout} />
+          </ul>
+          <div className="sm:hidden text-xl" onClick={() => menuClick()}>
+            {!menuToggle ? <GiHamburgerMenu /> : <MdClose />}
+          </div>
         </div>
-        
-      </div>
+
+        {menuToggle && 
+          <div className="fixed sm:hidden right-0 bg-gray-300 opacity-90 w-52 text-center" onClick={()=>menuClick()}>
+            <ul className='flex-col my-4'>
+                <NavLinks user={user} handleLogout={handleLogout} />
+            </ul>
+          </div>}
+      </>
+      
         
     )
 }

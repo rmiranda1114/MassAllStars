@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -8,8 +8,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 function Register () {
     const navigate = useNavigate();
     const location = useLocation();
-    const [errMsg, setErrMsg] = React.useState('');
-    const [formData, setFormData] = React.useState({
+    const [errMsg, setErrMsg] = useState('');
+    const [formData, setFormData] = useState({
         playerName: "", playerDOB: "", playerAge: "", playerGrade: "",
         parentName: "", playerSchool: "",
         playerAddress: "", playerCity: "", playerState: "", playerZipcode: "",
@@ -20,10 +20,12 @@ function Register () {
         emergencyName2: "", emergencyRelationship2: "",
         emergencyAddress2: "", emergencyCity2: "", emergencyState2: "", emergencyZipcode2: "",
         emergencyHomephone2: "", emergencyCellphone2: "",
-        sport: "", uniformSize: "",
+        sport: "", uniformSize: "", uniformNumber1: "",
+        uniformNumber2: "", uniformNumber3: "",
         playerMedical:"", acknowlegment: false
     })
-    //console.log(formData);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [isAddAnother, setIsAddAnother] = useState(false);
     
     function handleChange (e) {
         const { name, value, type, checked } = e.target;
@@ -66,110 +68,159 @@ function Register () {
         }
     }
 
-    React.useEffect(() => {
+    const handlePage = (e) => {
+        if (e.target.id == "next") {
+            setPageNumber((prevPageNumber) => prevPageNumber + 1)
+        }
+        if (e.target.id == "prev") {
+            setPageNumber((prevPageNumber) => prevPageNumber - 1)
+        }
+    }
+
+    useEffect(() => {
         setErrMsg('');
     },[formData])
 
 
     return (
-        <div id="registration" className="registration">
-            
-            <h1>Registration Form</h1>
-            <br />
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <h1 className="my-4 text-xl font-medium text-center">Registration Form</h1>
             <form onSubmit={handleSubmit}>
-                <fieldset>
-                    <label>Child's Name: <input type="text" onChange={handleChange} name="playerName" value={formData.playerName} required/></label>
-                    <label>Child's DOB: <input type="date" onChange={handleChange} name="playerDOB" value={formData.playerDOB} required/></label>
-                    <label>Age: <input type="number" min="5" max ="17" onChange={handleChange} name="playerAge" value={formData.playerAge} required/></label>
-                    <label htmlFor="playerGrade">Grade: <input id="playerGrade" type="number" min="1" max ="12" onChange={handleChange} name="playerGrade" value={formData.playerGrade}/></label>
-                    <br />
-                    <label>Parent/Guardian Name: <input type="text" onChange={handleChange} name="parentName" value={formData.parentName} required/></label>
-                    <label>School: <input type="text" onChange={handleChange} name="playerSchool" value={formData.playerSchool}/></label>
-                    <br />
-                    <label>Home Address: <input type="text" onChange={handleChange} name="playerAddress" value={formData.playerAddress} required/></label>
-                    <label>City: <input type="text" onChange={handleChange} name="playerCity" value={formData.playerCity}/></label>
-                    <label>State: <input type="text" onChange={handleChange} name="playerState" value={formData.playerState}/></label>
-                    <label>Zip Code: <input type="text" onChange={handleChange} name="playerZipcode" value={formData.playerZipcode}/></label>
-                    <br />
-                    <label>Phone Number: <input type="text" onChange={handleChange} name="playerPhone" value={formData.playerPhone} required/></label>
-                    <label>Alternate Phone Number: <input type="text" onChange={handleChange} name="playerPhone2" value={formData.playerPhone2}/></label>
-                </fieldset>
-                
-                <br /><br />
-                <fieldset>
-                    <legend>Emergency Contact</legend>
-                    <br />
-                    <label>(1) Name: <input type="text" onChange={handleChange} name="emergencyName1" value={formData.emergencyName1} required/></label>
-                    <label>Relationship: <input type="text" onChange={handleChange} name="emergencyRelationship1" value={formData.emergencyRelationship1}/></label>
-                    <br />
-                    <label>Address: <input type="text" onChange={handleChange} name="emergencyAddress1" value={formData.emergencyAddress1} required/></label>
-                    <label>City: <input type="text" onChange={handleChange} name="emergencyCity1" value={formData.emergencyCity1}/></label>
-                    <label>State: <input type="text" onChange={handleChange} name="emergencyState1" value={formData.emergencyState1}/></label>
-                    <label>Zip Code: <input type="text" onChange={handleChange} name="emergencyZipcode1" value={formData.emergencyZipcode1}/></label>
-                    <br />
-                    <label>Home Phone Number: <input type="text" onChange={handleChange} name="emergencyHomephone1" value={formData.emergencyHomephone1}/></label>
-                    <label>Cell Phone Number: <input type="text" onChange={handleChange} name="emergencyCellphone1" value={formData.emergencyCellphone1}/></label>
-                    <br /><br />
-                    <label>(2) Name: <input type="text" onChange={handleChange} name="emergencyName2" value={formData.emergencyName2}/></label>
-                    <label>Relationship: <input type="text" onChange={handleChange} name="emergencyRelationship2" value={formData.emergencyRelationship2}/></label>
-                    <br />
-                    <label>Address: <input type="text" onChange={handleChange} name="emergencyAddress2" value={formData.emergencyAddress2}/></label>
-                    <label>City: <input type="text" onChange={handleChange} name="emergencyCity2" value={formData.emergencyCity2}/></label>
-                    <label>State: <input type="text" onChange={handleChange} name="emergencyState2" value={formData.emergencyState2}/></label>
-                    <label>Zip Code: <input type="text" onChange={handleChange} name="emergencyZipcode2" value={formData.emergencyZipcode2}/></label>
-                    <br />
-                    <label>Home Phone Number: <input type="text" onChange={handleChange} name="emergencyHomephone2" value={formData.emergencyHomephone2}/></label>
-                    <label>Cell Phone Number: <input type="text" onChange={handleChange} name="emergencyCellphone2" value={formData.emergencyCellphone2}/></label>
-                </fieldset>
-                <br />
+                <div className="bg-gray-300 p-10 rounded-xl shadow-black shadow-lg mb-8">
 
-                <label htmlFor="sport">Sport: </label>
-                <select id="sport" value={formData.sport} onChange={handleChange} name="sport">
-                    <option value="">--Choose One--</option>
-                    <option value="Soccer">Soccer</option>
-                    <option value="Basketball">Basketball</option>
-                </select>
-                <br /><br />
+                    {/* Page 1 */}
+                    {pageNumber == 1 && <>
+                        <label className="block text-sm font-medium text-gray-700">Player's Name: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerName" value={formData.playerName} placeholder="Child's Name"required/>
+                        <label className="block text-sm font-medium text-gray-700">Players DOB: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="date" onChange={handleChange} name="playerDOB" value={formData.playerDOB} required/>
+                        <div className="flex justify-evenly items-center my-4">
+                            <label className="block text-sm font-medium" htmlFor="playerAge">Age: </label>
+                            <input className=" p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="playerAge" type="number" min="5" max ="17" onChange={handleChange} name="playerAge" value={formData.playerAge} required/>
+                            <label className="block text-sm font-medium" htmlFor="playerGrade">Grade: </label>
+                            <input className="p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="playerGrade" type="number" min="1" max ="12" onChange={handleChange} name="playerGrade" value={formData.playerGrade}/>
+                        </div>
+                        <label className="block text-sm font-medium">School: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerSchool" value={formData.playerSchool}/>                    
+                        <label className="block text-sm font-medium">Parent/Guardian Name: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="parentName" value={formData.parentName} required/>
+                        <label className="block text-sm font-medium">Home Address: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerAddress" value={formData.playerAddress} required/>
+                        <label className="block text-sm font-medium">City: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerCity" value={formData.playerCity}/>
+                        <div className="flex justify-evenly items-center my-4">
+                            <label className="block text-sm font-medium">State: </label>
+                            <input className=" w-14 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerState" value={formData.playerState}/>
+                            <label className="block text-sm font-medium">Zip Code: </label>
+                            <input className="w-28 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerZipcode" value={formData.playerZipcode}/>
+                        </div>
+                        <label className="block text-sm font-medium">Phone Number: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerPhone" value={formData.playerPhone} required/>
+                        <label className="block text-sm font-medium">Alternate Phone Number: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerPhone2" value={formData.playerPhone2}/>
+                    </>}
+            
+                    {/* Page 2 */}
+                    {pageNumber == 2 && <>
+                        <legend className="text-center">Emergency Contact</legend>
+                        <label className="block text-sm font-medium">Name: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyName1" value={formData.emergencyName1} required/>
+                        <label className="block text-sm font-medium">Relationship: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyRelationship1" value={formData.emergencyRelationship1}/>
+                        <label className="block text-sm font-medium">Address: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyAddress1" value={formData.emergencyAddress1} required/>
+                        <label className="block text-sm font-medium">City: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyCity1" value={formData.emergencyCity1}/>
+                        <div className="flex justify-evenly items-center my-4">
+                            <label className="block text-sm font-medium">State: </label>
+                            <input className=" w-14 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyState1" value={formData.emergencyState1}/>
+                            <label className="block text-sm font-medium">Zip Code: </label>
+                            <input className=" w-14 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyZipcode1" value={formData.emergencyZipcode1}/>
+                        </div>
+                        <label className="block text-sm font-medium">Home Phone Number: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyHomephone1" value={formData.emergencyHomephone1}/>
+                        <label className="block text-sm font-medium">Cell Phone Number: </label>
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyCellphone1" value={formData.emergencyCellphone1}/>
+                        
+                        <div className="text-xs hover:cursor-pointer hover:text-indigo-500 p-2" onClick={() => setIsAddAnother(isAddAnother ? false : true)}>
+                            {isAddAnother ? <span className="text-indigo-500">- Add another</span> : <span>+ Add another</span>}
+                        </div>
 
-                <fieldset>
-                    <legend>Uniform Size</legend>
-                    <input type="radio" id="uniformSizeYXS" name="uniformSize" value="YXS" onChange={handleChange} checked={formData.uniformSize === "YXS"}/>
-                    <label htmlFor="uniformSizeYXS">Youth X-Small</label>
-                    <input type="radio" id="uniformSizeYS" name="uniformSize" value="YS" onChange={handleChange} checked={formData.uniformSize === "YS"}/>
-                    <label htmlFor="uniformSizeYS">Youth Small</label>
-                    <input type="radio" id="uniformSizeYM" name="uniformSize" value="YM" onChange={handleChange} checked={formData.uniformSize === "YM"}/>
-                    <label htmlFor="uniformSizeYM">Youth Medium</label>
-                    <input type="radio" id="uniformSizeYL" name="uniformSize" value="YL" onChange={handleChange} checked={formData.uniformSize === "YL"}/>
-                    <label htmlFor="uniformSizeYL">Youth Large</label>
-                    <input type="radio" id="uniformSizeYXL" name="uniformSize" value="YXL" onChange={handleChange} checked={formData.uniformSize === "YXL"}/>
-                    <label htmlFor="uniformSizeYXL">Youth X-Large</label>
-                    <br />
-                    <input type="radio" id="uniformSizeAS" name="uniformSize" value="AS" onChange={handleChange} checked={formData.uniformSize === "AS"}/>
-                    <label htmlFor="uniformSizeYAS">Adult Small</label>
-                    <input type="radio" id="uniformSizeAM" name="uniformSize" value="AM" onChange={handleChange} checked={formData.uniformSize === "AM"}/>
-                    <label htmlFor="uniformSizeAM">Adult Medium</label>
-                    <input type="radio" id="uniformSizeAL" name="uniformSize" value="AL" onChange={handleChange} checked={formData.uniformSize === "AL"}/>
-                    <label htmlFor="uniformSizeAL">Adult Large</label>
-                    <input type="radio" id="uniformSizeAXL" name="uniformSize" value="AXL" onChange={handleChange} checked={formData.uniformSize === "AXL"}/>
-                    <label htmlFor="uniformSizeAXL">Adult X-Large</label>
-                </fieldset><br />
+                        {isAddAnother && <>
+                            <legend className="text-center my-4">Second Emergency Contact</legend>
+                            <label className="block text-sm font-medium">Name: </label>
+                            <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyName2" value={formData.emergencyName2} required/>
+                            <label className="block text-sm font-medium">Relationship: </label>
+                            <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyRelationship2" value={formData.emergencyRelationship2}/>
+                            <label className="block text-sm font-medium">Address: </label>
+                            <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyAddress2" value={formData.emergencyAddress2} required/>
+                            <label className="block text-sm font-medium">City: </label>
+                            <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyCity2" value={formData.emergencyCity2}/>
+                            <div className="flex justify-evenly items-center my-4">
+                                <label className="block text-sm font-medium">State: </label>
+                                <input className=" w-14 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyState2" value={formData.emergencyState2}/>
+                                <label className="block text-sm font-medium">Zip Code: </label>
+                                <input className=" w-14 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyZipcode2" value={formData.emergencyZipcode2}/>
+                            </div>
+                            <label className="block text-sm font-medium">Home Phone Number: </label>
+                            <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyHomephone2" value={formData.emergencyHomephone2}/>
+                            <label className="block text-sm font-medium">Cell Phone Number: </label>
+                            <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyCellphone2" value={formData.emergencyCellphone2}/>
+                        </>}
+                    </>}
 
-                <label>Medical Conditions: <br />
-                    <textarea rows="5" cols="70" placeholder="(i.e. asthma, allergies, medications, etc.)" onChange={handleChange} name="playerMedical" value={formData.playerMedical}/>
-                </label>
-                <br />
 
-                <input type="checkbox" id="acknowlegment" checked={formData.acknowlegment} onChange={handleChange} name="acknowlegment" required/>
-                <label htmlFor="acknowlegment">I acknowledge that i have read the Mass All-Starz Waiver of Liability and i have received
-                a copy of Mass All-Starz "Rules for Parents and Players" and understand/agree to follow all rules including the "Zero Tolerance" 
-                policy. </label>
-                <br /><br />
-                <p className={errMsg ? "errMsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <button onClick={handleSubmit}>Register Player</button>
+                    {/* Page 3 */}
+                    {pageNumber == 3 && <>
+                        <label className="block text-sm font-medium" htmlFor="sport">Sport: </label>
+                        <select className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="sport" value={formData.sport} onChange={handleChange} name="sport">
+                            <option value="">--Choose One--</option>
+                            <option value="Soccer">Soccer</option>
+                            <option value="Basketball">Basketball</option>
+                        </select>
+                        <label className="block text-sm font-medium" htmlFor="uniformSize">Uniform Size: </label>
+                        <select className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="uniformSize" value={formData.uniformSize} onChange={handleChange} name="uniformSize">
+                            <option value="">--Choose One--</option>
+                            <option value="YXS">Youth Extra Small</option>
+                            <option value="YS">Youth Small</option>
+                            <option value="YM">Youth Medium</option>
+                            <option value="YL">Youth Large</option>
+                            <option value="YXL">Youth Extra Large</option>
+                            <option value="AS">Adult Small</option>
+                            <option value="AM">Adult Medium</option>
+                            <option value="AL">Adult Large</option>
+                            <option value="AXL">Adult Extra Large</option>
+                        </select>
+                        <legend className="block text-sm font-medium">Preferred Uniform Number</legend>
+                        <div className="flex justify-evenly">
+                            <label className="text-xs" htmlFor="uniformNumber">1st: </label>
+                            <input className="w-12 p-1 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="uniformNumber1" type="number" min="0" max ="99" onChange={handleChange} name="uniformNumber1" value={formData.uniformNumber1} required/>
+                            <label className="text-xs" htmlFor="uniformNumber">2nd: </label>
+                            <input className="w-12 p-1 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="uniformNumber2" type="number" min="0" max ="99" onChange={handleChange} name="uniformNumber2" value={formData.uniformNumber2} />
+                            <label className="text-xs" htmlFor="uniformNumber">3rd: </label>
+                            <input className="w-12 p-1 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="uniformNumber3" type="number" min="0" max ="99" onChange={handleChange} name="uniformNumber3" value={formData.uniformNumber3} />
 
+                        </div>
+                        <label className="block text-sm font-medium">Medical Conditions: </label>
+                        <textarea className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" rows="5" placeholder="(i.e. asthma, allergies, medications, etc.)" onChange={handleChange} name="playerMedical" value={formData.playerMedical}/>
+                        <input type="checkbox" id="acknowlegment" checked={formData.acknowlegment} onChange={handleChange} name="acknowlegment" required/>
+                        <label htmlFor="acknowlegment"> I acknowledge that I have read the Mass All-Stars Waiver of Liability and I have reviewed
+                            a copy of Mass All-Stars "Rules for Parents and Players" and understand/agree to follow all rules including the "Zero Tolerance" 
+                            policy.
+                        </label>
+                        
+                        <p className={errMsg ? " text-logoRed" : "hidden"} aria-live="assertive">{errMsg}</p>
+                        <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full mt-4" onClick={handleSubmit}>Register Player</button>
+                    </>}
+
+                    <div className="flex justify-evenly text-blue-600 mt-4">
+                        <span id="prev" className={pageNumber == 1 ? "text-slate-600" : "hover:cursor-pointer"} onClick={pageNumber == 1 ? null : handlePage}>prev page</span>
+                        <span>|</span>
+                        <span id="next" className={pageNumber == 3 ? "text-slate-600" : "hover:cursor-pointer"} onClick={pageNumber == 3 ? null : handlePage}>next page</span>
+                    </div>
+                </div>
             </form>
         </div>
-        
     )
 }
 

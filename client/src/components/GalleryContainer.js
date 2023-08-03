@@ -1,10 +1,8 @@
-import GalleryModal from './GalleryModal';
 import { Image } from 'cloudinary-react';
 import { useState, useEffect } from "react";
 
 function GalleryContainer () {
     const [imageIds, setImageIds] = useState([]);
-    const [selectedImg, setSelectedImg] = useState();
 
     const loadImages = async() => {
         try{
@@ -19,25 +17,18 @@ function GalleryContainer () {
         loadImages();
     }, [])
 
-    function handleClick (e) {
-        e.preventDefault();
-        setSelectedImg(e.target.id);
-    }
+    
 
     const galleryElement = imageIds.map((item, index) => {
-        return <Image key={index} cloudName='ddfwmzehx' id={index} className="galleryIcons"publicID={item} width="500" crop="fill" height="600" onClick={handleClick} />
+        return <Image key={index} cloudName='ddfwmzehx' id={index} className="w-11/12 h-auto sm:max-w-md" publicID={item} crop="fill" height="600" />
       })
 
-   
-   
-    
     return (
-        <div className="mainContent">
-            <div className="galleryContainer">
-                {galleryElement}
-            </div>
-            {selectedImg && ( <GalleryModal setSelectedImg={setSelectedImg} clicked={imageIds[selectedImg]}  /> )}
+
+        <div className="flex flex-wrap justify-center gap-4 mt-8 ">
+            {galleryElement}
         </div>
+        
     )
 }
 

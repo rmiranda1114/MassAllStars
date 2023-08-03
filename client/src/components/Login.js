@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useUser from "../hooks/useUser.js";
 import axios from '../api/axios.js';
@@ -6,8 +6,8 @@ import axios from '../api/axios.js';
 
 
 function Login () {
-    const userRef = React.useRef();
-    const errRef = React.useRef();
+    const userRef = useRef();
+    const errRef = useRef();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "../coach";
@@ -15,12 +15,12 @@ function Login () {
     const { setUser } = useUser();
 
      // Stores login values
-    const [loginData, setLoginData] = React.useState({
+    const [loginData, setLoginData] = useState({
         email: "",
         password: ""
     })
 
-    const [errMsg, setErrMsg] = React.useState((''));
+    const [errMsg, setErrMsg] = useState((''));
 
     useEffect(() => {
         userRef.current.focus();
@@ -84,21 +84,22 @@ function Login () {
     }
 
     return (
-        <div className="mainContent">
-            <div className="userForm">
-                <p ref={errRef} className={errMsg ? 'errMsg' : 'offscreen'} aria-live="assertive">{errMsg}</p>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="user" >Email Address: </label>
-                    <input id="user" type="email" name="email" ref={userRef} onChange={handleChange} value={loginData.email} required />
-                    <br />
-                    <label htmlFor="password">Password: </label>
-                    <input id="password" type="text" name="password" onChange={handleChange} value={loginData.password} required />
-                    <br />
-                    <button>Login</button>
-                    <br />
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="bg-gray-300 p-10 rounded-xl shadow-black shadow-lg">
+                <p ref={errRef} className={errMsg ? "flex" : "hidden"} aria-live="assertive">{errMsg}</p>
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="user" >Email Address: </label>
+                    <div  className="mt-1">
+                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="user" type="email" name="email" ref={userRef} onChange={handleChange} value={loginData.email} required />
+                    </div>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password: </label>
+                    <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="password" type="text" name="password" onChange={handleChange} value={loginData.password} required />
+                    
+                    <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full">Login</button>
                     
                 </form>
             </div>
+            
         </div>
     )
 }
