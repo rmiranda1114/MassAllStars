@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/MassAllStars/static/css/main.54193f79.css",
+    "main.js": "/MassAllStars/static/js/main.0259c162.js",
+    "index.html": "/MassAllStars/index.html",
+    "main.54193f79.css.map": "/MassAllStars/static/css/main.54193f79.css.map",
+    "main.0259c162.js.map": "/MassAllStars/static/js/main.0259c162.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.54193f79.css",
+    "static/js/main.0259c162.js"
+  ]
+}
