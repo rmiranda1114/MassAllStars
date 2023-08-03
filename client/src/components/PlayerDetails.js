@@ -1,12 +1,11 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "./api/axios";
-import PlayerDetailsCard from "./PlayerDetailsCard";
 
 function PlayerDetails () {
     // Returns object w key/value pairs
     const { id } = useParams();
-    const [x, setX] = React.useState({});
+    const [x, setX] = useState({});
     
 
     async function loadPlayer() {
@@ -22,8 +21,6 @@ function PlayerDetails () {
                     }
                 });
             setX(res);
-            
-            
         }
         catch (err) {
             return (
@@ -32,9 +29,7 @@ function PlayerDetails () {
         }
     }
 
-
-    
-    React.useEffect(() => {
+    useEffect(() => {
         loadPlayer();
     },[id])
 

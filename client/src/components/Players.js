@@ -60,22 +60,16 @@ function Players () {
       }
 
     
-    return (
+    return ( 
         <>
-            { details  ? (<div>
+            { details  ? (<div className="my-8 sm:mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
                             <PlayerDetailsCard x={selectPlayer} />
-                            <button onClick={()=>setDetails(false)}>Go Back</button>
+                            <button className="w-full p-2 bg-gray-400 rounded-lg my-4" onClick={()=>setDetails(false)}>Go Back</button>
                         </div>)
-                : (<div className="mainPlayer">
-                
-                    <div className="playerCardContainer">{playerElement}</div>
-            
-                </div>)
+                : ( <div className="flex gap-4 flex-wrap justify-center my-8">{playerElement}</div> )
 
             }
-           
         </>
-        
     )
 }
 

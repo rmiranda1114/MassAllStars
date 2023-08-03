@@ -4,13 +4,15 @@ const router = express.Router();
 const { Player } = require('../models/player.js');
 
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const id = req.body.id;
     try {
-        Player.findOneAndDelete({ _id: id}, (err, doc) => {
-            if (err) return res.json({ message: 'Unable to delete'});
-            if (doc) return res.status(200).json({ message: 'Player Deleted'});
-        });
+        const player = await Player.findOneAndDelete({ _id: id});
+        if (player._id == id) {
+            return res.status(200).json({ message: 'Player Deleted'});
+        } else {
+            throw new Error;
+        }
     }catch (err) {
         next(err);
     }

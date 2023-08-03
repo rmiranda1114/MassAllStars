@@ -122,6 +122,12 @@ const playerSchema = new mongoose.Schema(
         uniformSize: {
             type: String
         },
+        team: {
+            type: String
+        },
+        age: {
+            type: String
+        },
         medicalCondition: {
             type: String
         },
@@ -188,6 +194,8 @@ function validateRegistration (player) {
              
         sport: Joi.required(),
         uniformSize: Joi.required(),
+        playerNumber: Joi.number().min(0).max(99),
+        team: Joi.string().max(25),
         playerMedical: Joi.string().min(0).max(100),
         acknowlegment: Joi.boolean()
     }).options({ abortEarly: false });

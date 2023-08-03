@@ -65,6 +65,8 @@ router.post('/', async (req, res, next)=> {
             },
             sport: newForm.sport,
             uniformSize: newForm.uniformSize,
+            team: "",
+            playerNumber: "",
             medicalCondition: newForm.playerMedical,
             acknowlegment: newForm.acknowlegment
            

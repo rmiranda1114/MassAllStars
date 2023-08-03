@@ -1,6 +1,6 @@
 function Unauthorized () {
     return (
-        <div>
+        <div className="text-logoRed text-center">
             <h1>Unauthorized</h1>
         </div>
     )

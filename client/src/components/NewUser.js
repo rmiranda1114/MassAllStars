@@ -71,7 +71,7 @@ function NewUser () {
                 credentials: 'include',
                 headers: {
                     "Content-Type": 'application/json',
-                    "authorization": user.accesstoken
+                    "authorization": `Bearer ${user.accesstoken}`
                 },
                 body: JSON.stringify({
                     name: name,
@@ -103,70 +103,70 @@ function NewUser () {
     }
 
 
-
     return (
-        <div  className="newUser ">{success ? ( <div><h1>New Coach successfully created.</h1></div> ) : (
+        <div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
+            {success ? ( <div><h1>New Coach successfully created.</h1></div> ) : (
             <div id="newCoach" className="userForm">
                 <p ref={errRef} className={errMsg ? "errMsg" : "offscreen"} aria-live="assertive">{errMsg}</p> 
-                <h1>Create New Coach</h1>
+                <h5 className="text-center underline font-bold mb-2">Create New Coach</h5>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="newName">New Coach Name: </label>
-                    <input type="text" ref={userRef} id="newName" autoComplete="off" onChange={(e) => setName(e.target.value)}
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="newName">New Coach Name: </label>
+                    <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" ref={userRef} id="newName" autoComplete="off" onChange={(e) => setName(e.target.value)}
                      value={name} />
 
-                    <label htmlFor="userEmail">Email Address: 
-                        <span className={validEmail ? "valid" : "hide"}>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="userEmail">Email Address: 
+                        <span className={validEmail ? "text-green-500" : "hidden"}>
                             <FontAwesomeIcon icon={faCheck} />    
                         </span>
-                        <span className={validEmail || !email ? "hide" : "invalid"}>
+                        <span className={validEmail || !email ? "hidden" : "text-logoRed"}>
                             <FontAwesomeIcon icon={faTimes} />
                         </span>     
                     </label>
-                    <input type="text" id="userEmail" ref={userRef} autoComplete="off" onChange={(e) => setEmail(e.target.value)}
+                    <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" id="userEmail" ref={userRef} autoComplete="off" onChange={(e) => setEmail(e.target.value)}
                         required aria-invalid={validEmail ? "false" : "true"} onFocus={() => setUserFocus(true)} 
                         onBlur={() => setUserFocus (false)} value={email} />
                         
                     <br />
 
-                    <label htmlFor="userPwd">Password: 
-                        <span className={validPwd ? "valid" : "hide"}>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="userPwd">Password: 
+                        <span className={validPwd ? "text-green-500" : "hidden"}>
                             <FontAwesomeIcon icon={faCheck} />    
                         </span>
-                        <span className={validPwd || !pwd ? "hide" : "invalid"}>
+                        <span className={validPwd || !pwd ? "hidden" : "text-logoRed"}>
                             <FontAwesomeIcon icon={faTimes} />
                         </span>
                     </label>
-                    <input type="password" id="userPwd" onChange={(e) => setPwd(e.target.value)} required 
+                    <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="password" id="userPwd" onChange={(e) => setPwd(e.target.value)} required 
                         aria-invalid={validPwd ? "false" : "true"} aria-describedby="pwdnote" onFocus={() => setPwdFocus(true)} 
                         onBlur={() => setPwdFocus (false)} value={pwd}/> 
                             
 
-                    <p id="pwdnote" className= {pwdFocus && !validPwd ? "insctructions" : "offscreen"}>
+                    <p id="pwdnote" className= {pwdFocus && !validPwd ? "text-logoRed" : "hidden"}>
                         <FontAwesomeIcon icon={faInfoCircle} />
                         6 to 16 characters. <br />
                         Must include uppercase and lowercase letters and a number.
                     </p>  
 
-                    <label htmlFor="confirmPwd">Confirm Password: 
-                        <span className={validMatch && matchPwd ? "valid" : "hide"}>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="confirmPwd">Confirm Password: 
+                        <span className={validMatch && matchPwd ? "text-green-500" : "hidden"}>
                             <FontAwesomeIcon icon={faCheck} />    
                         </span>
-                        <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                        <span className={validMatch || !matchPwd ? "hidden" : "text-logoRed"}>
                             <FontAwesomeIcon icon={faTimes} />
                         </span> 
                     </label>
-                    <input type="password" id="confirmPwd" onChange={(e) => setMatchPwd(e.target.value)} required 
+                    <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="password" id="confirmPwd" onChange={(e) => setMatchPwd(e.target.value)} required 
                         aria-invalid={validMatch ? "false" : "true"} aria-describedby="confirmnote" onFocus={() => setMatchFocus(true)} 
                         onBlur={() => setMatchFocus (false)} value={matchPwd}/>
                            
 
-                    <p id="confirmnote" className= {matchFocus && !validMatch ? "insctructions" : "offscreen"}>
+                    <p id="confirmnote" className= {matchFocus && !validMatch ? "text-logoRed" : "hidden"}>
                         <FontAwesomeIcon icon={faInfoCircle} />
                         Must match the first password input field.
                     </p>
 
-                    <button disabled={!validEmail || !validPwd || !validMatch ? true : false}>
-                        Create New Coach    
+                    <button className="w-full p-2 bg-gray-400 rounded-lg mt-2" disabled={!validEmail || !validPwd || !validMatch ? true : false}>
+                        Create    
                     </button>             
                     
                 </form>

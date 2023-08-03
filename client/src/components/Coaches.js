@@ -67,20 +67,23 @@ const Coaches = () => {
     }
 
     return (
-        <div className="activeUser">
-            <h2>Active Coaches</h2>
+        <div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
+            <h5 className="text-center underline font-bold mb-2">Active Coaches</h5>
             {coaches?.length
                 ? (
-                    <ul>
-                        {coaches.map((coach, i) => <li key={i}>{coach?.name}<span> </span><button id={coach._id}
-                            onClick={handleClick}>Delete</button></li>)}
+                    <ul >
+                        {coaches.map((coach, i) => <li className="flex justify-between items-center my-4" key={i}><span>{coach?.name}</span>
+                        <button className="bg-gray-400 rounded-lg p-1" id={coach._id} onClick={handleClick}>Delete</button></li>)}
                     </ul>
                 ) : <p>No coaches to display</p>}
-                {deleteCoach ? (<div className="overlay confirmDelete">
+                {deleteCoach ? (<div className=" fixed top-1/4 mx-auto inset-x-0 max-w-md text-center bg-slate-200 p-4 rounded-lg border-black shadow-lg">
                  <form onSubmit={handleDelete} >
-                    <h2>Are you sure you want to</h2><h2>delete this player?</h2>
-                    <br />
-                    <button onClick={handleDelete}>Delete</button><span> </span><button type="button" onClick={() => setDeleteCoach(null)}>Cancel</button>
+                    <h2 className="text-logoRed">Are you sure you want to delete this player?</h2>
+                    <div className="flex justify-evenly my-4">
+                        <button className="bg-gray-400 rounded-lg px-2 py-1" onClick={handleDelete}>Delete</button>
+                        <button className="bg-gray-400 rounded-lg px-2 py-1" type="button" onClick={() => setDeleteCoach(null)}>Cancel</button>
+                    </div>
+                    
                 </form>
             </div>) : (<div></div>)}
             

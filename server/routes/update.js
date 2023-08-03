@@ -47,6 +47,8 @@ router.post('/', async (req, res, next)=> {
             x.emergencyContact.person2.phone.alt= newForm.emergencyCellphone2;
             x.sport= newForm.sport;
             x.uniformSize= newForm.uniformSize;
+            x.team= newForm.team;
+            x.playerNumber= newForm.playerNumber;
             x.medicalCondition= newForm.playerMedical;
             x.acknowlegment= true;
 

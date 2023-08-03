@@ -4,8 +4,8 @@ function WelcomeCoach () {
     const { user } = useAuth();
 
     return (
-        <div className="mainContent coachContent">
-            <h1>Welcome {user.user}</h1>
+        <div className="my-8 text-center text-2xl font-bolds">
+            <h1>Coach {user.user}</h1>
         </div>
     )
 }

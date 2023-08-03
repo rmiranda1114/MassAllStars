@@ -20,12 +20,12 @@ function GalleryContainer () {
     
 
     const galleryElement = imageIds.map((item, index) => {
-        return <Image key={index} cloudName='ddfwmzehx' id={index} className="w-11/12 h-auto sm:max-w-md" publicID={item} crop="fill" height="600" />
+        return <Image key={index} cloudName='ddfwmzehx' id={index} className="w-11/12 sm:max-w-md h-fit" publicID={item} crop="fill" />
       })
 
     return (
 
-        <div className="flex flex-wrap justify-center gap-4 mt-8 ">
+        <div className="flex flex-wrap justify-center items-center gap-4 mt-8 ">
             {galleryElement}
         </div>
         
