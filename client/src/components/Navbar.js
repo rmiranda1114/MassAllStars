@@ -15,17 +15,15 @@ function Navbar () {
       const res = await fetch('http://localhost:5000/api/logout',
         {  
         method: 'POST',
-        credential: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          refresh: sessionStorage.getItem('JWT')
+          userId: user._id
         }),
       })
         //Clear user from context
       sessionStorage.removeItem('JWT');
-      localStorage.removeItem('X-auth-token');
       setUser({});
       navigate('/');
       }catch (err) {

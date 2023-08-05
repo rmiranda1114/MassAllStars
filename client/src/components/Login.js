@@ -40,7 +40,6 @@ function Login () {
     // api request to validate login
     async function handleSubmit (e) {
         e.preventDefault();
-
         try{
             const res = await axios.post('api/login',
                 JSON.stringify({
@@ -49,13 +48,14 @@ function Login () {
                 }),
                 {
                 headers: {
-                    "Content-Type": 'application/json',
-                    withCredentials: true
+                    "Content-Type": 'application/json'
+                    //withCredentials: true
                     }
                 }
             );
             // stores access token
             setUser({
+                _id: res.data._id,
                 user: res.data.user,
                 accesstoken: res.data.accessToken,
                 admin: res.data.admin

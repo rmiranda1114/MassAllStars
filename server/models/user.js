@@ -47,7 +47,7 @@ userSchema.methods.generateRefreshToken = function () {
 }
 //Remember to delete refreshtoken below
 userSchema.methods.sendAccessToken = function (req, res, accessToken, refreshToken) {
-    res.header('Authorization', accessToken).status(200).json({ message: 'Login Successful', user: this.name, admin: this.admin, accessToken: accessToken, refreshToken: refreshToken }) 
+    res.header('Authorization', accessToken).status(200).json({ message: 'Login Successful', _id: this._id, user: this.name, admin: this.admin, accessToken: accessToken, refreshToken: refreshToken }) 
 }
 
 userSchema.methods.sendRefreshToken = function (res, refreshToken) {

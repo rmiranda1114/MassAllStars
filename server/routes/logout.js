@@ -9,10 +9,10 @@ router.post('/', async (req, res, next) => {
     //const cookies = req.cookies;
     //if (!cookies?.JWT) return res.sendStatus(204);
     //const refreshtoken = cookies.JWT;
-    const refreshtoken = req.body.refresh;
+    const id = req.body.userId;
 
     try {
-        const user = await User.findOne({ refreshtoken: refreshtoken });
+        const user = await User.findOne({ _id: id });
         if (!user) {
             res.clearCookie('JWT', { httpOnly: true, sameSite: 'None', secure: true, path: '/refresh_token'});
             return res.status(200).json({ message: "logged out" });
