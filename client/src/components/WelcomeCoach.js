@@ -1,7 +1,7 @@
-import useAuth from "../hooks/useUser";
+import useUser from "../hooks/useUser";
 
 function WelcomeCoach () {
-    const { user } = useAuth();
+    const { user } = useUser();
 
     return (
         <div className="my-8 text-center text-2xl font-bolds">

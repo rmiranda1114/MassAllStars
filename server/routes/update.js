@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const {Player, validate} = require('../models/player.js');
+const authorize = require('../middleware/authorize.js');
 
 
 
 
-router.post('/', async (req, res, next)=> {
+router.post('/', authorize, async (req, res, next)=> {
     try{
         //Uses Joi to validate information
         const { error, value } = validate(req.body.formData);

@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "./api/axios";
+import useUser from "../hooks/useUser";
 
 function PlayerDetails () {
     // Returns object w key/value pairs
     const { id } = useParams();
     const [x, setX] = useState({});
-    
+    const { user } = useUser();   
 
     async function loadPlayer() {
         try {
@@ -16,6 +17,7 @@ function PlayerDetails () {
                 }),
                 {
                 headers: {
+                    "authorization": `Bearer ${user.accesstoken}`,
                     "Content-Type": 'application/json',
                     withCredentials: true
                     }

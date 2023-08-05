@@ -1,16 +1,18 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/user.js');
+const authorize = require('../middleware/authorize.js');
 
 
-router.post('/', (req, res, next) => {
+router.post('/', authorize, async(req, res, next) => {
     const id = req.body.id;
     try {
-        User.findOneAndDelete({ _id: id}, (err, doc) => {
-            if (err) return res.json({ message: 'Unable to delete'});
-            if (doc) return res.status(200).json({ message: 'Coach Deleted'});
-        });
+        const player = await User.findOneAndDelete({ _id: id});
+            if (player._id == id) {
+                return res.status(200).json({ message: 'Coach Deleted'});
+            } else {
+                throw new Error;
+            }
     }catch (err) {
         next(err);
     }
@@ -21,4 +23,4 @@ router.post('/', (req, res, next) => {
 
 })
 
-module.exports = router;
+module.exports = router

@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const cloudinary = require('../config/cloudinary.js');
+const authorize = require('../middleware/authorize.js');
 
-router.post('/', async (req, res, next)=> {
+router.post('/', authorize, async (req, res, next)=> {
     try{
         const fileStr = req.body.data;
         const response = await cloudinary.uploader.upload(fileStr, {

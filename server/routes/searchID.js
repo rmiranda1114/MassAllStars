@@ -7,7 +7,7 @@ const authorize = require('../middleware/authorize.js');
 
 
 
-router.post('/', async (req, res, next) => {
+router.post('/', authorize, async (req, res, next) => {
     console.log(req.body.id)
     try{
         let player = await Player.findById(req.body.id);

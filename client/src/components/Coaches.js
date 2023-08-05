@@ -10,34 +10,28 @@ const Coaches = () => {
     const [deleteCoach, setDeleteCoach] = useState();
     const axiosPrivate = useAxiosPrivate();
 
-    useEffect(() => {
+    const getCoaches = async () => {
         let isMounted = true;
         const controller = new AbortController();
-        
-        const getCoaches = async () => {
-            try {
-                const response = await axiosPrivate.get('/api/coaches', {
-                    signal: controller.signal,
-                    headers: {
-                        "authorization": user.accesstoken
-                    }
-                   
-                });
-                isMounted && setCoaches(response.data);
-            } catch (err) {
-                if (err.code === 'ERR_CANCELED') return;
-                console.log(err);
-            }
+        try {
+            const response = await axiosPrivate.get('/api/coaches', {
+                signal: controller.signal,
+                headers: {
+                    "authorization": `Bearer ${user.accesstoken}`
+                }
+                
+            });
+            isMounted && setCoaches(response.data);
+        } catch (err) {
+            if (err.code === 'ERR_CANCELED') return;
+            console.log(err);
         }
-
-        getCoaches();
-
         return() => {
             isMounted = false;
             controller.abort();
         }
-    },[])
-
+    }
+   
     const handleClick = (e) => {
         e.preventDefault();
         const id = e.target.id;
@@ -47,24 +41,26 @@ const Coaches = () => {
 
     const handleDelete = async (e) => {
         e.preventDefault();
-
         const res = await fetch('http://localhost:5000/api/deleteCoach', {
             method: 'POST',
             credentials: 'include',
             headers: {
-                "Content-Type": 'application/json'
+                "Content-Type": 'application/json',
+                "authorization": `Bearer ${user.accesstoken}`
             },
             body: JSON.stringify({
                 id: deleteCoach._id
             })
-            //converts back to Json
         })
-
         if (res.status === 200){
             navigate('../../success');
             setDeleteCoach(null);
         }
     }
+
+    useEffect(() => {
+        getCoaches()
+    },[])
 
     return (
         <div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">

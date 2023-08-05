@@ -1,9 +1,8 @@
-const mongoose = require('mongoose'); // dont need?
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
-require('dotenv').config(); // dont need?
+//require('dotenv').config(); // dont need?
 const { User } = require('../models/user.js');
 
 router.post('/', async (req, res, next) => {

@@ -1,11 +1,14 @@
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import useUser from "../hooks/useUser";
+
 
 function Update ({ selectPlayer, setSelectPlayer }) {
     const navigate = useNavigate();
+    const { user } = useUser();
     const [formData, setFormData] = useState({
         id: "",
-        playerName: "", playerDOB: "", playerAge: "", playerGrade: "",
+        playerName: "", playerDOB: null, playerAge: null, playerGrade: "",
         parentName: "", playerSchool: "",
         playerAddress: "", playerCity: "", playerState: "", playerZipcode: "",
         playerPhone: "", playerPhone2: "",
@@ -16,7 +19,7 @@ function Update ({ selectPlayer, setSelectPlayer }) {
         emergencyAddress2: "", emergencyCity2: "", emergencyState2: "", emergencyZipcode2: "",
         emergencyHomephone2: "", emergencyCellphone2: "",
         sport: "", uniformSize: "", team: "",
-        playerNumber: "", playerMedical:""
+        playerNumber: null, playerMedical:""
     })
     const [pageNumber, setPageNumber] = useState(1);
     const [isAddAnother, setIsAddAnother] = useState(false);
@@ -37,6 +40,7 @@ function Update ({ selectPlayer, setSelectPlayer }) {
             method: 'POST',
             credentials: 'include',
             headers: {
+                "authorization": `Bearer ${user.accesstoken}`,
                 "Content-Type": 'application/json'
             },
             body: JSON.stringify({
@@ -188,14 +192,14 @@ function Update ({ selectPlayer, setSelectPlayer }) {
                     <label className="block text-sm font-medium" htmlFor="team">Team: </label>
                     <select className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="team" value={formData.team} onChange={handleChange} name="team">
                         <option value="">--Choose One--</option>
-                        <option value="YXS">U6 Red</option>
-                        <option value="YS">U6 Blue</option>
-                        <option value="YM">U8 Red</option>
-                        <option value="YL">U8 Blue</option>
-                        <option value="YXL">U10 Red</option>
-                        <option value="AS">U10 Blue</option>
-                        <option value="AM">U13 Red</option>
-                        <option value="AL">U13 Blue</option>
+                        <option value="U6 Red">U6 Red</option>
+                        <option value="U6 Blue">U6 Blue</option>
+                        <option value="U8 Red">U8 Red</option>
+                        <option value="U8 Blue">U8 Blue</option>
+                        <option value="U10 Red">U10 Red</option>
+                        <option value="U10 Blue">U10 Blue</option>
+                        <option value="U13 Red">U13 Red</option>
+                        <option value="U13 Blue">U13 Blue</option>
                     </select>
                     <label className="block text-sm font-medium" htmlFor="playerNumber">Player's Number: </label>
                     <input className="w-16 p-1 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="playerNumber" type="number" min="0" max ="99" onChange={handleChange} name="playerNumber" value={formData.playerNumber} />

@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useUser from "../hooks/useUser";
+
 
 function Upload () {
     const navigate = useNavigate();
     const [newFile, setNewFile] = React.useState('');
     const [previewImg, setPreviewImg] = React.useState(null);
+    const { user } = useUser();
 
 
     const handleNewFile = (e) => {
@@ -31,6 +34,7 @@ function Upload () {
             const res = await fetch('http://localhost:5000/api/upload', {
                 method: 'POST',
                 headers: {
+                    "authorization": `Bearer ${user.accesstoken}`,
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify({

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const {Player, validate} = require('../models/player.js');
@@ -65,8 +64,11 @@ router.post('/', async (req, res, next)=> {
             },
             sport: newForm.sport,
             uniformSize: newForm.uniformSize,
+            uniformNumber1: newForm.uniformNumber1,
+            uniformNumber2: newForm.uniformNumber2,
+            uniformNumber3: newForm.uniformNumber3,
             team: "",
-            playerNumber: "",
+            playerNumber: null,
             medicalCondition: newForm.playerMedical,
             acknowlegment: newForm.acknowlegment
            

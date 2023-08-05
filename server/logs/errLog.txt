@@ -8,3 +8,6 @@
 20230804	19:23:01	65480cd8-0796-4bf6-ba70-b74739de9baf	Error: 
 20230804	19:23:52	ffdd076c-ccc5-4d7d-8280-44eb06eedea6	Error: 
 20230804	19:24:55	e8e6c04f-1db6-4152-bd3a-fafd24f67536	Error: 
+20230804	20:00:50	bfb42174-ad29-449a-b7dc-c9a571a1a08d	MongooseError: Model.findOneAndDelete() no longer accepts a callback
+20230804	20:01:02	ce5b2895-d4fa-47df-9e7b-091d47b26126	MongooseError: Model.findOneAndDelete() no longer accepts a callback
+20230804	20:01:45	88245f30-7636-49ed-90d0-e59d4ea1269c	MongooseError: Model.findOneAndDelete() no longer accepts a callback

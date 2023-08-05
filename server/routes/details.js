@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const {Player} = require('../models/player.js');
+const authorize = require('../middleware/authorize.js');
 
-router.get('/', async (req, res, next) => {
+router.get('/', authorize, async (req, res, next) => {
     const id = req.params.id;
     try{
         let players= await Player.findOne({ _id: id });

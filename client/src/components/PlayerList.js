@@ -20,7 +20,7 @@ function PlayerList () {
             const response = await axiosPrivate.get('/api/search', {
                 signal: controller.signal,
                 headers: {
-                    "authorization": user.accesstoken
+                    "authorization": `Bearer ${user.accesstoken}`
                 }
                 
             });
@@ -75,7 +75,8 @@ function PlayerList () {
             method: 'POST',
             credentials: 'include',
             headers: {
-                "Content-Type": 'application/json'
+                "Content-Type": 'application/json',
+                "authorization": `Bearer ${user.accesstoken}`
             },
             body: JSON.stringify({
                 id: deletePlayer

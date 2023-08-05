@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+//require('dotenv').config();
 const { User } = require('../models/user.js');
 
 //REMEMBER TO REMOVE BODY ********

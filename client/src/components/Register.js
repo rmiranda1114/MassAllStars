@@ -5,12 +5,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 
 
-function Register () {
+const Register = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [errMsg, setErrMsg] = useState('');
     const [formData, setFormData] = useState({
-        playerName: "", playerDOB: "", playerAge: "", playerGrade: "",
+        playerName: "", playerDOB: null, playerAge: null, playerGrade: "",
         parentName: "", playerSchool: "",
         playerAddress: "", playerCity: "", playerState: "", playerZipcode: "",
         playerPhone: "", playerPhone2: "",
@@ -20,8 +20,8 @@ function Register () {
         emergencyName2: "", emergencyRelationship2: "",
         emergencyAddress2: "", emergencyCity2: "", emergencyState2: "", emergencyZipcode2: "",
         emergencyHomephone2: "", emergencyCellphone2: "",
-        sport: "", uniformSize: "", uniformNumber1: "",
-        uniformNumber2: "", uniformNumber3: "",
+        sport: "", uniformSize: "", uniformNumber1: null,
+        uniformNumber2: null, uniformNumber3: null,
         playerMedical:"", acknowlegment: false
     })
     const [pageNumber, setPageNumber] = useState(1);
@@ -39,6 +39,9 @@ function Register () {
 
     async function handleSubmit (e) {
         e.preventDefault();
+        if (!formData.acknowlegment) {
+            setErrMsg('Must acknowledge');
+        } else {
         try {
             const res = await axios.post('api/players',
                 JSON.stringify({
@@ -65,7 +68,7 @@ function Register () {
             } else {
                 setErrMsg ('Registration Failed');
             }
-        }
+        }}
     }
 
     const handlePage = (e) => {
@@ -210,7 +213,9 @@ function Register () {
                         </label>
                         
                         <p className={errMsg ? " text-logoRed" : "hidden"} aria-live="assertive">{errMsg}</p>
-                        <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full mt-4" onClick={handleSubmit}>Register Player</button>
+                        <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full mt-4" onClick={handleSubmit}>
+                            Register Player
+                        </button>
                     </>}
 
                     <div className="flex justify-evenly text-blue-600 mt-4">

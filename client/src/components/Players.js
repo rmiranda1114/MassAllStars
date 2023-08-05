@@ -21,7 +21,7 @@ function Players () {
                 const response = await axiosPrivate.get('/api/search', {
                     signal: controller.signal,
                     headers: {
-                        "authorization": user.accesstoken
+                        "authorization": `Bearer ${user.accesstoken}`
                     }
                    
                 });

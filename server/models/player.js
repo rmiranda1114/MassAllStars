@@ -9,11 +9,11 @@ const playerSchema = new mongoose.Schema(
                 required: true
             },
             dob: {
-                type: String,
+                type: Date,
                 require: true
             },
             age: {
-                type: String,
+                type: Number,
                 require: true
             },
             grade: {
@@ -122,11 +122,20 @@ const playerSchema = new mongoose.Schema(
         uniformSize: {
             type: String
         },
+        uniformNumber1: {
+            type: Number
+        },
+        uniformNumber2: {
+            type: Number
+        },
+        uniformNumber3: {
+            type: Number
+        },
         team: {
             type: String
         },
-        age: {
-            type: String
+        playerNumber: {
+            type: Number
         },
         medicalCondition: {
             type: String
@@ -145,7 +154,7 @@ function validateRegistration (player) {
     const schema = Joi.object({
             id: Joi.string(),
             playerName: Joi.string(),
-            playerDOB: Joi.string(),
+            playerDOB: Joi.date(),
             playerAge: Joi.number().min(5).max(17),
             playerGrade: Joi.string().max(25),
             parentName: Joi.string().min(5).max(50).required(),
@@ -194,6 +203,9 @@ function validateRegistration (player) {
              
         sport: Joi.required(),
         uniformSize: Joi.required(),
+        uniformNumber1: Joi.number().min(0).max(99),
+        uniformNumber2: Joi.number().min(0).max(99),
+        uniformNumber3: Joi.number().min(0).max(99),
         playerNumber: Joi.number().min(0).max(99),
         team: Joi.string().max(25),
         playerMedical: Joi.string().min(0).max(100),

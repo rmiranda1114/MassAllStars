@@ -13,8 +13,6 @@ function Login () {
     const from = location.state?.from?.pathname || "../coach";
 
     const { setUser } = useUser();
-
-     // Stores login values
     const [loginData, setLoginData] = useState({
         email: "",
         password: ""
