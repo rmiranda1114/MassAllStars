@@ -9,7 +9,7 @@ router.post('/', authorize, async (req, res, next) => {
     try {
         const player = await Player.findOneAndDelete({ _id: id });
         if (player._id == id) {
-            return res.status(200).json({ message: 'Player Deleted'});
+            return res.status(200).json({ message: `${player.player.name} has been deleted`});
         } else {
             new Error('Unable to delete player');
         }

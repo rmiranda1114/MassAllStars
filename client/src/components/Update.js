@@ -201,10 +201,6 @@ function Update ({ selectPlayer, setSelectPlayer }) {
                     </select>
                     <label className="block text-sm font-medium" htmlFor="playerNumber">Player's Number: </label>
                     <input className="w-16 p-1 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="playerNumber" type="number" min="0" max ="99" onChange={handleChange} name="playerNumber" value={formData.playerNumber} />
-                    
-                  
-                    <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full mt-4" type="button" onClick={() => setSelectPlayer(null)}>Cancel</button>
-                    <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full mt-4" type="submit" >Update Player</button>
                 </>}
                     
                 <div className="flex justify-evenly text-blue-600 mt-4">
@@ -212,6 +208,9 @@ function Update ({ selectPlayer, setSelectPlayer }) {
                     <span>|</span>
                     <span id="next" className={pageNumber == 3 ? "text-slate-600" : "hover:cursor-pointer"} onClick={pageNumber == 3 ? null : handlePage}>next page</span>
                 </div>
+                <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full mt-4" type="button" onClick={() => setSelectPlayer(null)}>Cancel</button>
+                <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full mt-4" type="submit" >Update Player</button>
+                
             </div>
         </form>
         </div>

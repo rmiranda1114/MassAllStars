@@ -136,9 +136,9 @@ const Register = () => {
                         <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyCity1" value={formData.emergencyCity1}/>
                         <div className="flex justify-evenly items-center my-4">
                             <label className="block text-sm font-medium">State: </label>
-                            <input className=" w-14 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyState1" value={formData.emergencyState1}/>
+                            <input className=" w-12 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyState1" value={formData.emergencyState1}/>
                             <label className="block text-sm font-medium">Zip Code: </label>
-                            <input className=" w-14 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyZipcode1" value={formData.emergencyZipcode1}/>
+                            <input className=" w-16 p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyZipcode1" value={formData.emergencyZipcode1}/>
                         </div>
                         <label className="block text-sm font-medium">Home Phone Number: </label>
                         <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="emergencyHomephone1" value={formData.emergencyHomephone1}/>

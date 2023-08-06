@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
-import { useNavigate } from "react-router-dom";
 import Update from "./Update";
+import { MdClose } from "react-icons/md";
 
 const PlayerList = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -9,7 +9,7 @@ const PlayerList = () => {
     const [playerElement, setPlayerElemement] = useState([]);
     const [selectPlayer, setSelectPlayer] = useState(null);
     const [deletePlayer, setDeletePlayer] = useState(null);
-    const navigate = useNavigate();
+    const [confirmMessage, setConfirmMessage] = useState("");
 
     const loadPlayers = async () => {
         let isMounted = true;
@@ -54,21 +54,20 @@ const PlayerList = () => {
                 id: deletePlayer
             });
             if (isMounted) {
-                setDeletePlayer(null);
-                navigate('../players');
-            }
-            return() => {
-                isMounted = false;
-                controller.abort();
+                setConfirmMessage(res.data.message);
             }
         } catch (err) {
             if (err.code === 'ERR_CANCELED') return;
-        };
+        }
+        return() => {
+            isMounted = false;
+            controller.abort();
+        }
     };
 
     useEffect(() => {
         loadPlayers();
-    },[])
+    },[confirmMessage])
 
     useEffect (() =>{
         setPlayerElemement(
@@ -96,15 +95,21 @@ const PlayerList = () => {
                     </div>
                 </div>)
             }
-            {deletePlayer ? (<div className=" fixed top-1/4 mx-auto inset-x-0 max-w-md text-center bg-slate-200 p-4 rounded-lg border-black shadow-lg">
-                 <form onSubmit={handleDelete} >
+            {deletePlayer && (<div className=" fixed top-1/4 mx-auto inset-x-0 max-w-md text-center bg-slate-200 p-4 rounded-lg border-black shadow-lg">
+                 {!confirmMessage ? (<form onSubmit={handleDelete} >
                     <h5 className="text-logoRed">Are you sure you want to delete this player?</h5>
                     <div className="flex justify-evenly my-4">
                         <button className="bg-gray-400 rounded-lg px-2 py-1" onClick={handleDelete}>Delete</button>
                         <button className="bg-gray-400 rounded-lg px-2 py-1" type="button" onClick={() => setDeletePlayer(null)}>Cancel</button>
                     </div>
-                </form>
-            </div>) : (<div></div>)}     
+                </form>) : (<div className="flex-col">
+                    <div className="text-right">
+                        <div className="inline-block p-1 justify-self-end" onClick={() => { setDeletePlayer(null); setConfirmMessage("")}}><MdClose /></div>
+                    </div>
+                    <div className="mt-2 mb-6 text-logoRed">{confirmMessage}</div>
+                </div>)}
+               
+            </div>)}     
         </div>
     )
 

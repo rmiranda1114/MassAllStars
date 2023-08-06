@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect, useRef }from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
@@ -8,39 +8,39 @@ const PWD_REGEX =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,16}$/;
 
 const NewUser = () => {
     const axiosPrivate = useAxiosPrivate();
-    const userRef = React.useRef();
-    const errRef = React.useRef();
+    const userRef = useRef();
+    const errRef = useRef();
 
-    const [name, setName] = React.useState('');
+    const [name, setName] = useState('');
 
-    const [email, setEmail] = React.useState('');
-    const [validEmail, setValidEmail] = React.useState(false);
-    const [userFocus, setUserFocus] = React.useState(false);
+    const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
+    const [userFocus, setUserFocus] = useState(false);
 
-    const [pwd, setPwd] = React.useState('');
-    const [validPwd, setValidPwd] = React.useState(false);
-    const [pwdFocus, setPwdFocus] = React.useState(false);
+    const [pwd, setPwd] = useState('');
+    const [validPwd, setValidPwd] = useState(false);
+    const [pwdFocus, setPwdFocus] = useState(false);
 
-    const [matchPwd, setMatchPwd] = React.useState('');
-    const [validMatch, setValidMatch] = React.useState(false);
-    const [matchFocus, setMatchFocus] = React.useState(false);
+    const [matchPwd, setMatchPwd] = useState('');
+    const [validMatch, setValidMatch] = useState(false);
+    const [matchFocus, setMatchFocus] = useState(false);
 
-    const [errMsg, setErrMsg] = React.useState('');
-    const [success, setSuccess] = React.useState(false);
+    const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
 
     //Set focus for screenreaders
-    React.useEffect(() => {
+    useEffect(() => {
         userRef.current.focus();
     },[])
 
    //Test username every time it is changed
-    React.useEffect(() => {
+    useEffect(() => {
         const result = EMAIL_REGEX.test(email);
         setValidEmail(result);
     },[email])
 
     //Test password and confirm password whenever either are changed
-    React.useEffect(() => {
+    useEffect(() => {
         const result = PWD_REGEX.test(pwd);
         setValidPwd(result);
         const match = pwd === matchPwd;
@@ -48,7 +48,7 @@ const NewUser = () => {
     },[pwd, matchPwd])
 
     //Resets error once its been read and update begins 
-    React.useEffect(() => {
+    useEffect(() => {
         setErrMsg('');
     },[email, pwd, matchPwd])
 
@@ -99,7 +99,7 @@ const NewUser = () => {
 
     return (
         <div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
-            {success ? ( <div><h1>New Coach successfully created.</h1></div> ) : (
+            {success ? ( <h1 className="text-center p-8">New Coach successfully created.</h1> ) : (
             <div id="newCoach" className="userForm">
                 <p ref={errRef} className={errMsg ? "errMsg" : "offscreen"} aria-live="assertive">{errMsg}</p> 
                 <h5 className="text-center underline font-bold mb-2">Create New Coach</h5>

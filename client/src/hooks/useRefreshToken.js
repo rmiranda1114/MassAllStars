@@ -6,9 +6,8 @@ const useRefreshToken = () => {
     const { setUser } = useUser();
 
     const refresh = async () => {
-        const response = await axios.post('/api/refresh', {
-            withCredentials: true,
-            headers: { 'Content-type': 'application/json' }
+        const response = await axios.post('/api/refresh', {}, {
+            withCredentials: true
         });
         setUser(prev => {
             return { ...prev, accesstoken: response.data.accessToken}

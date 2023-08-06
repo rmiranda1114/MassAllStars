@@ -6,12 +6,10 @@ const { User } = require('../models/user.js');
 
 //REMEMBER TO REMOVE BODY ********
 router.post('/', async (req, res) => {
+    const cookies = req.cookies;
    
-    //const cookies = req.cookies;
-    const token = req.body.refresh;
-    
-    //if (!cookies?.JWT) return res.status(400).json({ accessToken: ''});
-    //const token = cookies.JWT;
+    if (!cookies?.JWT) return res.status(400).json({ accessToken: ''});
+    const token = cookies.JWT;
 
     let user = await User.findOne({ refreshtoken: token });
     if (!user) return res.status(403).json({ accessToken: ''});
@@ -26,9 +24,8 @@ router.post('/', async (req, res) => {
     user.refreshtoken = refreshToken;
     const result = await user.save();
     user.sendRefreshToken(res, refreshToken);
-    user.sendAccessToken(req, res, accessToken, refreshToken);
+    user.sendAccessToken(req, res, accessToken);
    
-
 });
 
 module.exports = router;

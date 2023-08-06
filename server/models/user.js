@@ -25,15 +25,12 @@ const userSchema = new mongoose.Schema(
                 //Joi validates real length. This length for hash.
                 maxlength: 1024
         },
-      
         admin: {
             type: Boolean
         },
-
         refreshtoken: {
             type: String
         }
-  
     }
 );
 
@@ -44,7 +41,7 @@ userSchema.methods.generateAuthToken = function () {
 userSchema.methods.generateRefreshToken = function () {
     return jwt.sign({ _id: this._id, email: this.email, admin: this.admin }, process.env.jwtRefreshKey, {expiresIn: '1d'});
 }
-//Remember to delete refreshtoken below
+
 userSchema.methods.sendAccessToken = function (req, res, accessToken) {
     res.header('Authorization', accessToken).status(200).json({ message: 'Login Successful', _id: this._id, user: this.name, admin: this.admin, accessToken: accessToken }) 
 }
