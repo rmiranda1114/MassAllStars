@@ -26,9 +26,8 @@ router.post('/', async (req, res, next) => {
         user.refreshtoken = refreshToken;
         await user.save();
         //Sends cookie and tokens
-        user.sendRefreshToken(res, refreshToken);
-        //Remember to delete refreshToken
-        user.sendAccessToken(req, res, accessToken, refreshToken);
+        await user.sendRefreshToken(res, refreshToken);
+        user.sendAccessToken(req, res, accessToken);
 
     }
     catch (ex) {

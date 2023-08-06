@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useUser from "../hooks/useUser";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 
 function Upload () {
     const navigate = useNavigate();
+    const axiosPrivate = useAxiosPrivate();
     const [newFile, setNewFile] = React.useState('');
     const [previewImg, setPreviewImg] = React.useState(null);
-    const { user } = useUser();
-
 
     const handleNewFile = (e) => {
         const file = e.target.files[0];
@@ -30,23 +29,22 @@ function Upload () {
     }
 
     const uploadImage = async (base64EncodedImage) => {
+        let isMounted = true;
+        const controller = new AbortController();
         try{
-            const res = await fetch('http://localhost:5000/api/upload', {
-                method: 'POST',
-                headers: {
-                    "authorization": `Bearer ${user.accesstoken}`,
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    data: base64EncodedImage
-                })
+            const res = axiosPrivate.post('http://localhost:5000/api/upload', {
+                signal: controller.signal,
+                data: base64EncodedImage
             });
-            if (res.status === 200){
+            if (isMounted) {
                 navigate('../../success');
-            }
-
+            };
         }catch (err) {
-            console.log(err);
+            if (err.code === 'ERR_CANCELED') return;
+        }
+        return() => {
+            isMounted = false;
+            controller.abort();
         }
     }
 

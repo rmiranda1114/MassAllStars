@@ -7,11 +7,11 @@ const authorize = require('../middleware/authorize.js');
 router.post('/', authorize, async(req, res, next) => {
     const id = req.body.id;
     try {
-        const player = await User.findOneAndDelete({ _id: id});
-            if (player._id == id) {
-                return res.status(200).json({ message: 'Coach Deleted'});
+        const user = await User.findOneAndDelete({ _id: id });
+            if (user._id == id) {
+                return res.status(200).json({ message: `Coach ${user.name} deleted`});
             } else {
-                throw new Error;
+                new Error('Unable to Delete');
             }
     }catch (err) {
         next(err);

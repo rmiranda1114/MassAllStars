@@ -1,4 +1,4 @@
-function MainContent () {
+const MainContent = () => {
     return (
         <div className="flex-col text-center m-4">
             <div className="flex justify-center">

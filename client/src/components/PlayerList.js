@@ -1,16 +1,14 @@
-import React from "react";
-import useUser from "../hooks/useUser.js"
+import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
 import { useNavigate } from "react-router-dom";
 import Update from "./Update";
 
-function PlayerList () {
+const PlayerList = () => {
     const axiosPrivate = useAxiosPrivate();
-    const { user } = useUser();
-    const [result, setResult] = React.useState([]);
-    const [playerElement, setPlayerElemement] = React.useState([]);
-    const [selectPlayer, setSelectPlayer] = React.useState(null);
-    const [deletePlayer, setDeletePlayer] = React.useState(null);
+    const [result, setResult] = useState([]);
+    const [playerElement, setPlayerElemement] = useState([]);
+    const [selectPlayer, setSelectPlayer] = useState(null);
+    const [deletePlayer, setDeletePlayer] = useState(null);
     const navigate = useNavigate();
 
     const loadPlayers = async () => {
@@ -19,10 +17,6 @@ function PlayerList () {
         try {
             const response = await axiosPrivate.get('/api/search', {
                 signal: controller.signal,
-                headers: {
-                    "authorization": `Bearer ${user.accesstoken}`
-                }
-                
             });
             isMounted && setResult(response.data);
             return() => {
@@ -30,31 +24,12 @@ function PlayerList () {
                 controller.abort();
             }
         } catch (err) {
-            if (err.code === 'ERR_CANCELED') return;
-            console.error(err);
+            if (err.code === 'ERR_CANCELED') {
             return (
                 <div>Error.... unable to load players</div>
-            )
-        }
-    }
-
-    React.useEffect(() => {
-        loadPlayers();
-    },[])
-
-    React.useEffect (() =>{
-        setPlayerElemement(
-            result.map((x, index) => { 
-                return <div className="flex justify-between items-center" key={index}>
-                    {x.player.name}
-                    <div className="flex">
-                        <button className="p-1 m-2 bg-gray-400 rounded-lg" id={x._id} onClick={handleUpdate} >Update</button>
-                        <button className="p-1 m-2 bg-gray-400 rounded-lg" type="button" id={x._id} onClick={confirmDelete}>Delete</button>
-                    </div>
-                </div>;
-            })
-        ) 
-    },[result])
+            )}
+        };
+    };
 
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -67,27 +42,47 @@ function PlayerList () {
         e.preventDefault();
         const id = e.target.id;
         setDeletePlayer(id);
-    }
+    };
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        const res = await fetch('http://localhost:5000/api/deletePlayer', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                "Content-Type": 'application/json',
-                "authorization": `Bearer ${user.accesstoken}`
-            },
-            body: JSON.stringify({
+        let isMounted = true;
+        const controller = new AbortController();
+        try {
+            const res = await axiosPrivate.post('http://localhost:5000/api/deletePlayer', {
+                signal: controller.signal,
                 id: deletePlayer
-            })
-        })
+            });
+            if (isMounted) {
+                setDeletePlayer(null);
+                navigate('../players');
+            }
+            return() => {
+                isMounted = false;
+                controller.abort();
+            }
+        } catch (err) {
+            if (err.code === 'ERR_CANCELED') return;
+        };
+    };
 
-        if (res.status === 200){
-            navigate('../players');
-            setDeletePlayer(null);
-        }
-    }
+    useEffect(() => {
+        loadPlayers();
+    },[])
+
+    useEffect (() =>{
+        setPlayerElemement(
+            result.map((x, index) => { 
+                return <div className="flex justify-between items-center" key={index}>
+                    {x.player.name}
+                    <div className="flex">
+                        <button className="p-1 m-2 bg-gray-400 rounded-lg" id={x._id} onClick={handleUpdate} >Update</button>
+                        <button className="p-1 m-2 bg-gray-400 rounded-lg" type="button" id={x._id} onClick={confirmDelete}>Delete</button>
+                    </div>
+                </div>;
+            })
+        ) 
+    },[result])
 
 
     return (

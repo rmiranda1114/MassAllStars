@@ -22,8 +22,6 @@ function Navbar () {
           userId: user._id
         }),
       })
-        //Clear user from context
-      sessionStorage.removeItem('JWT');
       setUser({});
       navigate('/');
       }catch (err) {

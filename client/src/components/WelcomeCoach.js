@@ -1,6 +1,6 @@
 import useUser from "../hooks/useUser";
 
-function WelcomeCoach () {
+const WelcomeCoach = () => {
     const { user } = useUser();
 
     return (

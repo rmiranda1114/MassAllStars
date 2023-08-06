@@ -1,11 +1,11 @@
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import useUser from "../hooks/useUser";
+import useAxiosprivate from "../hooks/useAxiosPrivate";
 
 
 function Update ({ selectPlayer, setSelectPlayer }) {
     const navigate = useNavigate();
-    const { user } = useUser();
+    const axiosPrivate = useAxiosprivate();
     const [formData, setFormData] = useState({
         id: "",
         playerName: "", playerDOB: null, playerAge: null, playerGrade: "",
@@ -36,21 +36,19 @@ function Update ({ selectPlayer, setSelectPlayer }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch('http://localhost:5000/api/update', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                "authorization": `Bearer ${user.accesstoken}`,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({
-                formData
-            })
-        })
-        if (res.status === 200){
-            navigate('../../success');
+        let isMounted = true;
+        const controller = new AbortController;
+        try {
+            const res = await axiosPrivate.post('http://localhost:5000/api/update', {
+                signal: controller.signal,
+                formData: formData
+            });
+            isMounted && navigate('../../success');
+        } catch (err) {
+            if (err.code === 'ERR_CANCELED') return;
         }
     }
+    
 
     const handlePage = (e) => {
         if (e.target.id == "next") {

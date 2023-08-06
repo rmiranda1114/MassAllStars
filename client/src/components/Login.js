@@ -11,34 +11,18 @@ function Login () {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "../coach";
-
     const { setUser } = useUser();
-    const [loginData, setLoginData] = useState({
-        email: "",
-        password: ""
-    })
-
+    const [loginData, setLoginData] = useState({ email: "", password: "" })
     const [errMsg, setErrMsg] = useState((''));
 
-    useEffect(() => {
-        userRef.current.focus();
-    },[])
-
-    useEffect(() => {
-        setErrMsg('');
-    },[loginData])
-
-    // Updates state
-    function handleChange (e) {
+    const handleChange = (e) => {
         const { name, value } = e.target;
-
         setLoginData(prevData => ({
             ...prevData, [name]: value
-        }))
-    }
+        }));
+    };
 
-    // api request to validate login
-    async function handleSubmit (e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try{
             const res = await axios.post('api/login',
@@ -48,23 +32,16 @@ function Login () {
                 }),
                 {
                 headers: {
-                    "Content-Type": 'application/json'
-                    //withCredentials: true
-                    }
+                    "Content-Type": 'application/json',
+                    },
+                withCredentials: true
                 }
             );
-            // stores access token
             setUser({
                 _id: res.data._id,
                 user: res.data.user,
                 accesstoken: res.data.accessToken,
                 admin: res.data.admin
-            })
-            //Remember to delete*****************************************
-            sessionStorage.setItem('JWT', res.data.refreshToken);
-            setLoginData({
-                email: "",
-                password: ""
             })
             navigate('../coach');
         }catch (err){
@@ -80,6 +57,14 @@ function Login () {
             errRef.current.focus();
         }
     }
+
+    useEffect(() => {
+        userRef.current.focus();
+    },[])
+
+    useEffect(() => {
+        setErrMsg('');
+    },[loginData])
 
     return (
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

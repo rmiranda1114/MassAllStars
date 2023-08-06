@@ -11,3 +11,25 @@
 20230804	20:00:50	bfb42174-ad29-449a-b7dc-c9a571a1a08d	MongooseError: Model.findOneAndDelete() no longer accepts a callback
 20230804	20:01:02	ce5b2895-d4fa-47df-9e7b-091d47b26126	MongooseError: Model.findOneAndDelete() no longer accepts a callback
 20230804	20:01:45	88245f30-7636-49ed-90d0-e59d4ea1269c	MongooseError: Model.findOneAndDelete() no longer accepts a callback
+20230805	19:50:47	7734f310-20b8-4576-94eb-8120272b0002	ValidationError: users validation failed: name: Path `name` (`test`) is shorter than the minimum allowed length (5).
+20230806	09:11:07	df6235e9-c427-4bb6-9838-e4f8465c07b5	TypeError: Cannot read properties of null (reading '_id')
+20230806	09:11:54	76bcd323-52f5-4882-bc04-7b6535f71018	TypeError: Cannot read properties of null (reading '_id')
+20230806	09:12:24	8cf6d856-c571-4bcb-b2e5-3ebfa1fdd1c9	TypeError: Cannot read properties of null (reading '_id')
+20230806	09:12:42	25f448c0-b8bd-43b8-9a4c-f5b92d45f24b	TypeError: Cannot read properties of null (reading '_id')
+20230806	09:28:18	470d1fe1-b108-497a-891e-5bb994cfb2a4	TypeError: Cannot read properties of null (reading '_id')
+20230806	09:30:09	d8fff44a-e6ea-4a00-b64f-e7f1d83432aa	TypeError: Cannot read properties of null (reading '_id')
+20230806	09:32:24	2d1e5ec3-4b2f-4768-bd6f-10f5924e6fd1	TypeError: Cannot read properties of null (reading '_id')
+20230806	09:35:20	42bd21cd-48ab-408b-8393-5f2f1a4492de	TypeError: Cannot read properties of null (reading '_id')
+20230806	09:38:48	ad6fae06-70af-4e15-bc20-69f4b27aaf83	TypeError: Cannot read properties of null (reading '_id')
+20230806	11:22:53	e3047447-3811-4fd9-a58a-ef3826d7b791	Error: data and salt arguments required
+20230806	11:24:23	ef0b963f-31be-4281-814d-11ff553ebbe7	Error: data and salt arguments required
+20230806	11:32:10	8f7f17d3-632b-48a6-a67e-97839960fba9	TypeError: Cannot read properties of null (reading 'password')
+20230806	11:38:57	700ca31e-ec11-4bce-b1b7-65d74de3d22c	CastError: Cast to ObjectId failed for value "" (type string) at path "_id" for model "users"
+20230806	11:40:20	8e0d6a66-2299-412e-a5b9-5baab9cffd04	CastError: Cast to ObjectId failed for value "" (type string) at path "_id" for model "users"
+20230806	11:47:38	1b69f861-ae50-443e-8d23-9b6bb2306545	CastError: Cast to ObjectId failed for value "" (type string) at path "_id" for model "users"
+20230806	11:48:18	ead93062-ebe6-4c58-ac44-b4434c0c2200	CastError: Cast to ObjectId failed for value "" (type string) at path "_id" for model "users"
+20230806	11:48:56	58404bd2-3fe3-41af-ae64-caad367903d5	CastError: Cast to ObjectId failed for value "" (type string) at path "_id" for model "users"
+20230806	11:51:58	5aff241b-0aa5-4533-8a54-b0c1954a112e	CastError: Cast to ObjectId failed for value "" (type string) at path "_id" for model "users"
+20230806	11:53:48	232d5646-780f-4d74-93f7-90bbb460c130	CastError: Cast to ObjectId failed for value "" (type string) at path "_id" for model "users"
+20230806	12:00:28	0a0faf61-8d73-4f5d-a7e0-a6d63cd0ee0c	CastError: Cast to ObjectId failed for value "" (type string) at path "_id" for model "users"
+20230806	13:46:33	5986d0ef-dd32-4093-8715-ab7af3a0044b	TypeError: Cannot read properties of undefined (reading 'id')

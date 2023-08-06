@@ -1,15 +1,15 @@
 import React from "react";
-import useUser from "../hooks/useUser.js"
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const PWD_REGEX =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,16}$/;
 
-function NewUser () {
+const NewUser = () => {
+    const axiosPrivate = useAxiosPrivate();
     const userRef = React.useRef();
     const errRef = React.useRef();
-    const { user } = useUser();
 
     const [name, setName] = React.useState('');
 
@@ -54,10 +54,6 @@ function NewUser () {
 
     async function handleSubmit (e) {
         e.preventDefault();
-        if(!user.admin) {
-            setErrMsg('Unauthorized');
-            return;
-        }
         //prevent button enable with JS hack
         const v1 = EMAIL_REGEX.test(email);
         const v2 = PWD_REGEX.test(pwd);
@@ -65,25 +61,22 @@ function NewUser () {
             setErrMsg("Invalid Entry");
             return;
         }
+        let isMounted = true;
+        const controller = new AbortController();
         try{
-            let response = await fetch('http://localhost:5000/api/users', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    "Content-Type": 'application/json',
-                    "authorization": `Bearer ${user.accesstoken}`
-                },
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    password: pwd 
-                })
-            })
-            setName('');
-            setEmail('');
-            setPwd('');
-            setMatchPwd('');
-            response.status == 200 ? setSuccess(true) : new Error('Unable to Register');
+            let response = await axiosPrivate.post('/api/users', {
+                signal: controller.signal,
+                name: name,
+                email: email,
+                password: pwd 
+            });
+            if (isMounted) {
+                setName('');
+                setEmail('');
+                setPwd('');
+                setMatchPwd('');
+                setSuccess(true);
+            }
         }
         catch (err){
             if (!err?.response) {
@@ -97,9 +90,10 @@ function NewUser () {
             }
             errRef.current.focus();
         }
-    
-        
-
+        return() => {
+            isMounted = false;
+            controller.abort();
+        }
     }
 
 

@@ -1,5 +1,5 @@
 
-function PlayerCard ({ x, handleClick }) {
+const PlayerCard = ({ x, handleClick }) => {
     return (
         <div className=" w-5/6 max-w-xs bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base" >
             <p>Player's Name: <span>{x.player.name}</span></p>

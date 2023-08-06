@@ -1,17 +1,7 @@
-import { useContext, useEffect }from "react";
-import { Outlet, Link, useNavigate } from 'react-router-dom';
-import UserContext from "../context/UserProvider.js";
+import { Outlet, Link } from 'react-router-dom';
 
-
-function CoachDashboard () {
-    const navigate = useNavigate();
-    const { user } = useContext(UserContext);
-    
-
-    useEffect(() => {
-        if (!user.accesstoken) return navigate('../login');
-    },[])
-    
+const CoachDashboard = () => {
+  
     return (
         <div>
             <div>
@@ -29,7 +19,6 @@ function CoachDashboard () {
                 </nav>
             </div>
         </div>
-        
     )
 }
 

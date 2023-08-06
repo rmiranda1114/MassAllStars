@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 
-
 const userSchema = new mongoose.Schema(
     {
         name: {
@@ -46,8 +45,8 @@ userSchema.methods.generateRefreshToken = function () {
     return jwt.sign({ _id: this._id, email: this.email, admin: this.admin }, process.env.jwtRefreshKey, {expiresIn: '1d'});
 }
 //Remember to delete refreshtoken below
-userSchema.methods.sendAccessToken = function (req, res, accessToken, refreshToken) {
-    res.header('Authorization', accessToken).status(200).json({ message: 'Login Successful', _id: this._id, user: this.name, admin: this.admin, accessToken: accessToken, refreshToken: refreshToken }) 
+userSchema.methods.sendAccessToken = function (req, res, accessToken) {
+    res.header('Authorization', accessToken).status(200).json({ message: 'Login Successful', _id: this._id, user: this.name, admin: this.admin, accessToken: accessToken }) 
 }
 
 userSchema.methods.sendRefreshToken = function (res, refreshToken) {

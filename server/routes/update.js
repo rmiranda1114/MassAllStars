@@ -3,9 +3,6 @@ const router = express.Router();
 const {Player, validate} = require('../models/player.js');
 const authorize = require('../middleware/authorize.js');
 
-
-
-
 router.post('/', authorize, async (req, res, next)=> {
     try{
         //Uses Joi to validate information
