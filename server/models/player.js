@@ -3,133 +3,40 @@ const mongoose = require('mongoose');
 
 const playerSchema = new mongoose.Schema(
     {
-        player:{
-            name: {
-                type: String,
-                required: true
-            },
-            dob: {
-                type: String,
-                require: true
-            },
-            age: {
-                type: Number,
-                require: true
-            },
-            grade: {
-                type: String
-            },
-            parent: {
-                type: String,
-                require: true
-            },
-            school: {
-                type: String
-            },
-            address: {
-                street: {
-                    type: String
-                },
-                city: {
-                    type: String
-                },
-                state: {
-                    type: String
-                },
-                zipcode: {
-                    type: String
-                }
-            },
-            
-            phone: {
-                main: {
-                    type: String
-                },
-                alt: {
-                    type: String
-                }
-            }
+        name: {
+            type: String,
+            required: true
         },
-        emergencyContact: {
-            person1: {
-                name: {
-                    type: String,
-                    required: true
-                },
-                relationship: {
-                    type: String
-                },
-                address: {
-                    street: {
-                        type: String
-                    },
-                    city: {
-                        type: String
-                    },
-                    state: {
-                        type: String
-                    },
-                    zipcode: {
-                        type: String
-                    }
-                },
-                phone: {
-                    main: {
-                        type: String
-                
-                    },
-                    alt: {
-                        type: String
-                    }
-                }
-            },
-            person2: {
-                name: {
-                    type: String,
-                
-                },
-                relationship: {
-                    type: String
-                },
-                address: {
-                    street: {
-                        type: String
-                    },
-                    city: {
-                        type: String
-                    },
-                    state: {
-                        type: String
-                    },
-                    zipcode: {
-                        type: String
-                    }
-                },
-                phone: {
-                    main: {
-                        type: String
-                    },
-                    alt: {
-                        type: String
-                    }
-                }
-            }
-       
-        },       
+        dob: {
+            type: String,
+            require: true
+        },
+        age: {
+            type: Number,
+            require: true
+        },
+        grade: {
+            type: String
+        },
+        school: {
+            type: String
+        },
         sport: {
             type: String
         },
         uniformSize: {
             type: String
         },
-        uniformNumber1: {
+        prefferedNumber : {
+            uniformNumber1: {
             type: Number
-        },
-        uniformNumber2: {
-            type: Number
-        },
-        uniformNumber3: {
-            type: Number
+            },
+            uniformNumber2: {
+                type: Number
+            },
+            uniformNumber3: {
+                type: Number
+            }
         },
         team: {
             type: String
@@ -140,8 +47,17 @@ const playerSchema = new mongoose.Schema(
         medicalCondition: {
             type: String
         },
-        acknowlegment: {
-            type: Boolean
+        parentId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'parent'
+        },
+        teamId : {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'team'
+        },
+        emergencyContact: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'emergencyContact'
         }
     }
 );

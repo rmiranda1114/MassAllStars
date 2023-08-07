@@ -12,6 +12,7 @@ import CoachDashboard from './components/CoachDashboard.js';
 import NewUser from './components/NewUser.js';
 import Coaches from './components/Coaches.js';
 import Players from './components/Players.js';
+import PlayerDetails from './components/PlayerDetails.js';
 import PlayerList from './components/PlayerList.js';
 import Update from './components/Update.js';
 import NoMatch from './components/NoMatch.js';
@@ -35,6 +36,7 @@ function App() {
           {/* protected routes */}
           <Route element={<RequireUser />}>
             <Route path="players" element={<Players />} />
+            <Route path="players/:playerId" element={<PlayerDetails />} />
             {/* protected admin routes */}
             <Route element={<RequireAdmin />}>
               <Route path="coach" element={<CoachDashboard />}>

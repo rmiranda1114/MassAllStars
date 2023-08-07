@@ -1,0 +1,49 @@
+20230807	13:16:12	6f4e4ab5-e819-47bc-8893-203bb61f4261	ReferenceError: error is not defined
+20230807	13:20:33	ca347eea-421b-42f3-a764-a057770b6cef	ReferenceError: error is not defined
+20230807	13:21:05	89574ead-531d-4fcc-acd1-128b7aed48ee	ReferenceError: error is not defined
+20230807	13:22:05	06ddf6e0-c2af-4629-b781-6fd69f6a23b6	ReferenceError: error is not defined
+20230807	13:22:18	421a0883-abd3-430f-8a39-b2c5dd396d0a	TypeError: Parent is not a constructor
+20230807	13:23:21	ffb80a56-8d5d-45ed-84ec-a419990d1707	TypeError: Parent is not a constructor
+20230807	13:24:02	7f499fc9-8b14-4992-aa3a-ec7c8c7a5272	ValidationError: parent validation failed: phoneAlt: Path `phoneAlt` (``) is shorter than the minimum allowed length (7)., emergencyContact.0.phoneAlt: Path `phoneAlt` (``) is shorter than the minimum allowed length (7)., emergencyContact.1.address.zipcode: Path `address.zipcode` is required., emergencyContact.1.address.state: Path `address.state` is required., emergencyContact.1.address.city: Path `address.city` is required., emergencyContact.1.address.street: Path `address.street` is required., emergencyContact.1.name: Path `name` is required., emergencyContact.1.relationship: Path `relationship` (``) is shorter than the minimum allowed length (5)., emergencyContact.1.phoneMain: Path `phoneMain` is required., emergencyContact.1.phoneAlt: Path `phoneAlt` (``) is shorter than the minimum allowed length (7).
+20230807	13:25:55	b6db30f5-69cf-41b0-b5ee-3b9b27f6a32d	ValidationError: parent validation failed: emergencyContact.1.address.zipcode: Path `address.zipcode` is required., emergencyContact.1.address.state: Path `address.state` is required., emergencyContact.1.address.city: Path `address.city` is required., emergencyContact.1.address.street: Path `address.street` is required., emergencyContact.1.name: Path `name` is required., emergencyContact.1.phoneMain: Path `phoneMain` is required.
+20230807	13:28:48	ad12bcbd-82ab-4ce6-92c4-12f0700a08bc	TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
+20230807	15:22:15	3265e677-2841-4a52-83f9-0f2aa4ac24c6	ReferenceError: newForm is not defined
+20230807	15:23:58	5eb330b0-27b0-4aee-8d57-155f99fabb64	ValidationError: players validation failed: teamId: Cast to ObjectId failed for value "" (type string) at path "teamId" because of "BSONError"
+20230807	15:37:16	174da1f8-379a-4a85-812e-fe5a5dbbbb7c	ValidationError: emergencyContact validation failed: phoneAlt: Path `phoneAlt` (``) is shorter than the minimum allowed length (7).
+20230807	15:37:53	7ceb19e8-59a8-4a12-8332-5af8b6ad4e80	TypeError: Parent.findByIdAndUpdate is not a function
+20230807	15:45:51	f13692ce-28d3-4eb4-8ec6-a9a6a7bd6235	TypeError: Parent.findByIdAndUpdate is not a function
+20230807	15:49:31	5b6cc229-b227-4cbe-b598-a36b48ea5d04	TypeError: Parent.findById is not a function
+20230807	17:18:31	5f71d589-cfa3-496d-892e-a0f5b6c37792	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:21:35	3429d614-2318-40b3-8866-58e8441af928	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:22:29	642215e2-4e66-4f37-be7e-32aa41bceb75	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:27:29	c8ad30cf-5c49-4420-9c3b-f7524654cd9f	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:33:02	aa986d3c-319c-4ed5-a144-f2bd837e2768	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:36:43	d609078c-c3d3-4b98-b454-ff8fed27220d	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:51:15	1715b69d-3a57-4487-80e4-105b2895f025	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:51:21	81d70d7f-af35-43fe-9885-919cc52d3b5c	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:52:18	4ffa5fff-5be0-4e41-bf3b-18facf7acd16	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:53:13	c4de7f22-9543-4f46-90ec-51737fd97ce7	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	17:56:50	5d8410ac-9f70-4437-ad30-65ee85f0573d	TypeError: Cannot destructure property 'playerId' of 'req.params.playerId' as it is undefined.
+20230807	17:57:20	ce912f2c-4afa-45b2-ba2c-b0fc2c10a74e	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:00:25	b56ba5e2-bcf8-485f-b84f-6d76cb14527c	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:00:47	b81f891b-d014-4c9e-8c7c-b66e7a20eb96	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:01:45	e031e0d0-c5cd-49a8-9a78-f30f7c3fde8f	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:04:45	c418f228-44d0-49ac-8283-7d1f3bd954b5	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:04:58	4e95706a-e328-4ab4-a388-4ef71537d122	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:05:10	7c130d24-5487-4a72-a0bc-38bdd8467d1b	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:07:26	861d9046-bf3b-451c-a696-1b46d2db5b29	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:07:40	65a82d6e-851f-4b37-acf5-e74fa153c4f6	TypeError: Found non-callable @@iterator
+20230807	18:08:16	dac4e8e1-dda4-40cd-b94d-ab1119ce6aa4	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:08:27	fcd6daf9-5251-4c6e-b7bd-267bba56e6c0	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:11:08	e7e77880-eca7-42bc-91c7-d3b2e2314de7	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:11:40	642bd6c6-1e52-44b9-ab40-9b19605292ee	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:11:56	db3734d8-49fa-43f3-ac31-754ab9117a47	TypeError: Cannot read properties of null (reading 'parentId')
+20230807	18:13:43	8f667b3a-382b-42ff-9571-86e51cf6c27f	TypeError: Cannot read properties of undefined (reading 'findById')
+20230807	18:13:47	f545b321-73db-404e-ac21-389c5a5c0c84	TypeError: Cannot read properties of undefined (reading 'findById')
+20230807	18:13:47	4a08967a-6a84-4f45-96c4-9992df4dd703	TypeError: Cannot read properties of undefined (reading 'findById')
+20230807	18:15:02	8c184875-3276-4ad3-baf9-74b30cf1b028	TypeError: Cannot read properties of undefined (reading 'findById')
+20230807	18:15:02	4d031bcc-6ed9-469d-bc7f-42def5d3bb2b	TypeError: Cannot read properties of undefined (reading 'findById')
+20230807	18:46:45	34d5cdea-fc79-4dda-a613-c4215c82826e	StrictPopulateError: Cannot populate path `parent` because it is not in your schema. Set the `strictPopulate` option to false to override.
+20230807	18:46:45	0f62c87b-2eeb-4667-a028-deb932df1adf	StrictPopulateError: Cannot populate path `parent` because it is not in your schema. Set the `strictPopulate` option to false to override.
+20230807	19:01:23	fb16c5bd-1f5e-4c9f-863a-dd6ec95f9d53	ReferenceError: populate is not defined
+20230807	19:01:23	9aa7c9e8-853c-4625-ae33-2f669dd0a609	ReferenceError: populate is not defined

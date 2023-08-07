@@ -42,7 +42,7 @@ const Register = () => {
             setErrMsg('Must acknowledge');
         } else {
         try {
-            const res = await axios.post('api/players',
+            const res = await axios.post('api/register',
                 JSON.stringify({
                     formData
                 }),

@@ -3,11 +3,14 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { logger } = require('../middleware/logEvent.js');
 const error = require('../middleware/error.js');
-const players = require('../routes/newPlayer.js');
+const createParent = require('../routes/createParent.js');
+const createPlayer = require('../routes/newPlayer.js');
+const createEmergency = require('../routes/createEmergency.js');
 const update = require('../routes/update.js');
 const deletePlayer = require('../routes/deletePlayer.js');
 const newUsers = require('../routes/newUsers.js');
 const login = require('../routes/login.js');
+const fullSearch = require('../routes/fullSearch.js');
 const search = require('../routes/search.js');
 const refresh = require('../routes/refresh.js');
 const coaches = require('../routes/coaches.js');
@@ -31,10 +34,13 @@ module.exports = function (app){
     
     app.use(express.static('public'));
     
-    app.use('/api/players', players);
+    app.use('/api/register', createEmergency);
+    app.use('/api/register', createParent);
+    app.use('/api/register', createPlayer);
     app.use('/api/update', update);
     app.use('/api/users', newUsers);
     app.use('/api/login', login);
+    app.use('/api/search/:playerId', fullSearch);
     app.use('/api/search', search); 
     app.use('/api/coaches', coaches);
     app.use('/api/deleteCoach', deleteCoach);
