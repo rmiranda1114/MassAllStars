@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "../api/axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 const Register = () => {
     const navigate = useNavigate();
-    const location = useLocation();
     const [errMsg, setErrMsg] = useState('');
     const [formData, setFormData] = useState({
         playerName: "", playerDOB: null, playerAge: null, playerGrade: "",

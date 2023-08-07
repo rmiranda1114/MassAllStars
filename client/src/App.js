@@ -1,6 +1,6 @@
 //import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout.js';
+import NavbarLayout from './components/Navbar.js';
 import RequireUser from './components/RequireUser.js';
 import RequireAdmin from './components/RequireAdmin.js';
 import GalleryContainer from './components/GalleryContainer';
@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<NavbarLayout />}>
           {/* public routes */}
           <Route path="/" element={<MainContent />} />
           <Route path="gallery" element={<GalleryContainer />} />
