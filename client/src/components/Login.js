@@ -43,7 +43,7 @@ function Login () {
                 accesstoken: res.data.accessToken,
                 admin: res.data.admin
             })
-            navigate('../coach');
+            res.data.admin ? navigate('../coach') : navigate('../players');
         }catch (err){
             if (!err?.response) {
                 setErrMsg('No Server Response');

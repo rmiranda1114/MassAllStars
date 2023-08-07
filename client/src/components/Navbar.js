@@ -10,7 +10,6 @@ function Navbar () {
   const { user, setUser } = useContext(UserContext);
   const [menuToggle, setMenuToggle] = useState(false);
   
-  
   const handleLogout =  async () => {
     try{
       const res = await fetch('http://localhost:5000/api/logout',
@@ -37,12 +36,12 @@ function Navbar () {
     return (
       <main>
         <div className="w-full h-24 bg-logoRed px-4 flex justify-between items-center">
-          <div className="h-full" onClick={() => { setMenuToggle(false); navigate("/"); }}>
+          <div className="h-full" onClick={() => { setMenuToggle(false); navigate("/home"); }}>
             <img className=" max-h-full" src="../images/MASLogo.jpg"/>
           </div>
-          <ul className="hidden sm:flex gap-4">
-            <NavLinks user={user} handleLogout={handleLogout} />
-          </ul>
+          <nav className="hidden sm:flex text-lg gap-6 font-semibold">
+            <NavLinks user={user} handleLogout={handleLogout} style={"hover:text-white"} />
+          </nav>
           <div className="sm:hidden text-xl" onClick={() => menuClick()}>
             {!menuToggle ? <GiHamburgerMenu /> : <MdClose />}
           </div>
@@ -53,10 +52,10 @@ function Navbar () {
         
 
         {menuToggle && 
-          <div className="absolute sm:hidden top-24 right-0 bg-gray-300 opacity-90 w-52 text-center" onClick={()=>menuClick()}>
-            <ul className='flex-col my-4'>
-              <NavLinks user={user} handleLogout={handleLogout} style={"my-8"}/>
-            </ul>
+          <div className="absolute sm:hidden top-24 right-0 h-1/3 bg-gray-300 opacity-90 w-52 text-center" onClick={()=>menuClick()}>
+            <nav className="h-full flex-col content-evenly">
+              <NavLinks user={user} handleLogout={handleLogout} style={"my-8 hover:text-indigo-500"}/>
+            </nav>
           </div>}
       </main>
       

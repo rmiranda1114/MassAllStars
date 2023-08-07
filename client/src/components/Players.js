@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
 import PlayerCard from './PlayerCard.js';
 import PlayerDetailsCard from "./PlayerDetailsCard.js";
+import WelcomeCoach from "./WelcomeCoach.js";
 
 function Players () {
     const axiosPrivate = useAxiosPrivate();
@@ -54,6 +55,7 @@ function Players () {
     
     return ( 
         <>
+            <WelcomeCoach />
             { isDetails  ? (<div className="my-8 sm:mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
                             <PlayerDetailsCard x={selectPlayer} />
                             <button className="w-full p-2 bg-gray-400 rounded-lg my-4" onClick={()=>setIsDetails(false)}>Go Back</button>

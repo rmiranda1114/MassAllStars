@@ -16,7 +16,6 @@ import PlayerList from './components/PlayerList.js';
 import Update from './components/Update.js';
 import NoMatch from './components/NoMatch.js';
 import Upload from './components/upload.js';
-import WelcomeCoach from "./components/WelcomeCoach.js";
 import Unauthorized from './components/Unauthorized.js';
 import React from "react";
 
@@ -32,14 +31,13 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="success" element={<Success />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
           {/* protected routes */}
           <Route element={<RequireUser />}>
-            <Route path="coach" element={<CoachDashboard />}>
-              <Route index element={<WelcomeCoach />} />
-              <Route path="players" element={<Players />} />
-              <Route path="unauthorized" element={<Unauthorized />} />
-              {/* protected admin routes */}
-              <Route element={<RequireAdmin />}>
+            <Route path="players" element={<Players />} />
+            {/* protected admin routes */}
+            <Route element={<RequireAdmin />}>
+              <Route path="coach" element={<CoachDashboard />}>
                 <Route path="coaches" element={<Coaches />} />
                 <Route path="newuser" element={<NewUser />} />
                 <Route path="find" element={<PlayerList />}>
