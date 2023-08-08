@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
-import Update from "./Update";
+import OverlayBox from "../wraps/OverlayBox.js";
 import { MdClose } from "react-icons/md";
 
 const PlayerList = () => {
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
     const [result, setResult] = useState([]);
     const [playerElement, setPlayerElemement] = useState([]);
-    const [selectPlayer, setSelectPlayer] = useState(null);
     const [deletePlayer, setDeletePlayer] = useState(null);
     const [confirmMessage, setConfirmMessage] = useState("");
+    const [searchQuery, setSearchQuery] = useState();
+    const [sortedPlayers, setSortedPlayers] = useState();
 
-    const loadPlayers = async () => {
-        let isMounted = true;
-        const controller = new AbortController();
+    const loadPlayers = async (isMounted, controller) => {
         try {
             const response = await axiosPrivate.get('/api/search', {
                 signal: controller.signal,
@@ -30,13 +31,6 @@ const PlayerList = () => {
             )}
         };
     };
-
-    const handleUpdate = (e) => {
-        e.preventDefault();
-        const id = e.target.id;
-        let index = result.findIndex(player => player._id === id);
-        setSelectPlayer(result[index]);
-    }
 
     const confirmDelete = (e) => {
         e.preventDefault();
@@ -59,43 +53,56 @@ const PlayerList = () => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') return;
         }
+        
+    };
+    
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+        loadPlayers(isMounted, controller);
         return() => {
             isMounted = false;
             controller.abort();
         }
-    };
+    },[confirmMessage]);
 
     useEffect(() => {
-        loadPlayers();
-    },[confirmMessage])
+        let sort = result.filter((player) =>
+        player.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        setSortedPlayers(sort);
+    }, [searchQuery]);
+
+    
 
     useEffect (() =>{
+        let display = !sortedPlayers ? result : sortedPlayers
         setPlayerElemement(
-            result.map((x, index) => { 
-                return <div className="flex justify-between items-center" key={index}>
-                    {x.player.name}
+                display.map((player) => { 
+                return <div className="flex justify-between items-center" key={player._id}>
+                    {player.team ? <div>{player.name}</div> : <div className="text-logoRed">{player.name}</div>}
                     <div className="flex">
-                        <button className="p-1 m-2 bg-gray-400 rounded-lg" id={x._id} onClick={handleUpdate} >Update</button>
-                        <button className="p-1 m-2 bg-gray-400 rounded-lg" type="button" id={x._id} onClick={confirmDelete}>Delete</button>
+                        <button className="p-1 m-2 bg-gray-400 rounded-lg" id={player._id} onClick={() => navigate(`./${player._id}`)} >Update</button>
+                        <button className="p-1 m-2 bg-gray-400 rounded-lg" type="button" id={player._id} onClick={confirmDelete}>Delete</button>
                     </div>
                 </div>;
             })
         ) 
-    },[result])
+    },[result, sortedPlayers])
 
 
     return (
-        <div className="mainContent coachContent">
-            {selectPlayer ? (<Update selectPlayer={selectPlayer} setSelectPlayer={setSelectPlayer} />)
-                :
-                (<div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
-                    <h5 className="text-center underline font-bold mb-2">Player's List</h5>
-                    <div>
-                        {playerElement}
-                    </div>
-                </div>)
-            }
-            {deletePlayer && (<div className=" fixed top-1/4 mx-auto inset-x-0 max-w-md text-center bg-slate-200 p-4 rounded-lg border-black shadow-lg">
+        <>
+            <div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
+                <form className="searchBar" >
+                    <input className="w-full p-1 rounded-xl my-2" type="search" placeholder="search..." onChange={(e) => setSearchQuery(e.target.value)} value={searchQuery}/>
+                </form>
+                <h5 className="text-center underline font-bold mb-2">Player's List</h5>
+                <div>
+                    {playerElement}
+                </div>
+            </div>
+            
+            {deletePlayer && <OverlayBox>
                  {!confirmMessage ? (<form onSubmit={handleDelete} >
                     <h5 className="text-logoRed">Are you sure you want to delete this player?</h5>
                     <div className="flex justify-evenly my-4">
@@ -108,9 +115,8 @@ const PlayerList = () => {
                     </div>
                     <div className="mt-2 mb-6 text-logoRed">{confirmMessage}</div>
                 </div>)}
-               
-            </div>)}     
-        </div>
+            </OverlayBox>}     
+        </>
     )
 
 }

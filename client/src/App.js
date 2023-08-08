@@ -14,11 +14,13 @@ import Coaches from './components/Coaches.js';
 import Players from './components/Players.js';
 import PlayerDetails from './components/PlayerDetails.js';
 import PlayerList from './components/PlayerList.js';
+import PlayerUpdate from './components/PlayerUpdate.js';
 import Update from './components/Update.js';
 import NoMatch from './components/NoMatch.js';
 import Upload from './components/upload.js';
 import Unauthorized from './components/Unauthorized.js';
 import React from "react";
+
 
 function App() {
 
@@ -42,9 +44,8 @@ function App() {
               <Route path="coach" element={<CoachDashboard />}>
                 <Route path="coaches" element={<Coaches />} />
                 <Route path="newuser" element={<NewUser />} />
-                <Route path="find" element={<PlayerList />}>
-                    <Route path="update" element={<Update />} />
-                </Route>
+                <Route path="find" element={<PlayerList />} />
+                <Route path="find/:playerId" element={<PlayerUpdate />} />
                 <Route path="upload" element={<Upload />} />
               </Route>
             </Route>

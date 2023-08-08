@@ -47,3 +47,8 @@
 20230807	18:46:45	0f62c87b-2eeb-4667-a028-deb932df1adf	StrictPopulateError: Cannot populate path `parent` because it is not in your schema. Set the `strictPopulate` option to false to override.
 20230807	19:01:23	fb16c5bd-1f5e-4c9f-863a-dd6ec95f9d53	ReferenceError: populate is not defined
 20230807	19:01:23	9aa7c9e8-853c-4625-ae33-2f669dd0a609	ReferenceError: populate is not defined
+20230807	20:18:55	ac4e8d49-d4c6-41f6-aec2-2e7d05ae79fc	MongoServerError: BSON field 'distinct.key' is the wrong type 'array', expected type 'string'
+20230807	20:19:16	e044bf14-c52b-4dad-b6ee-a2ad1a3ba948	ObjectParameterError: Parameter "filter" to distinct() must be an object, got "_id" (type string)
+20230808	10:40:10	a907bfeb-5b70-414a-a8ad-58d7a2d92379	TypeError: Cannot set properties of null (setting 'name')
+20230808	10:58:28	653bbc2b-dfc3-4c19-80b4-7f60d7bab267	TypeError: Cannot read properties of null (reading 'name')
+20230808	11:00:14	017855e4-434f-4c85-b72a-e6b79dff3e04	TypeError: Cannot read properties of null (reading 'name')

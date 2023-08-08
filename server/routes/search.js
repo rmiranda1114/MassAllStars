@@ -5,7 +5,6 @@ const authorize = require('../middleware/authorize.js');
 
 
 
-
 router.get('/', authorize, async (req, res, next) => {
     try{
         let players = await Player.find();
@@ -17,3 +16,4 @@ router.get('/', authorize, async (req, res, next) => {
 });
 
 module.exports = router;
+

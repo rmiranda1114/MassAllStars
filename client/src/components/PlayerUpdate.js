@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
-import PlayerDetailsCard from "./PlayerDetailsCard.js";
+import Update from "./Update";
 
-const PlayerDetails = () => {
+const PlayerUpdate = () => {
     const axiosPrivate = useAxiosPrivate();
-    const navigate = useNavigate();
     const { playerId } = useParams();
     const [result, setResult] = useState();
 
-    const loadPlayerDetails = async ( isMounted, controller ) => {
+    const findPlayer = async ( isMounted, controller ) => {
         try {
             const response = await axiosPrivate.post(`/api/search/${playerId}`, {
                 signal: controller.signal,
@@ -28,7 +27,7 @@ const PlayerDetails = () => {
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
-        loadPlayerDetails( isMounted, controller );
+        findPlayer( isMounted, controller );
         return() => {
             isMounted = false;
             controller.abort();
@@ -36,13 +35,12 @@ const PlayerDetails = () => {
     },[])
 
     return (
-        <div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
-            {result ? <PlayerDetailsCard player={result}/> : <div className="text-center">Loading...</div>}
-            <button className="w-full p-2 bg-gray-400 rounded-lg" onClick={() => navigate('/players')}>Go Back</button>
-        </div>
+        <div className="sm:mx-auto sm:w-full sm:max-w-md bg-gray-300 p-10 rounded-xl shadow-black shadow-lg my-8">
+            {result ? <Update player={result}/> : <div className="text-center">Loading...</div>}
+        </div>  
+        
     )
-
 
 }
 
-export default PlayerDetails;
+export default PlayerUpdate;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
+import OverlayBox from "../wraps/OverlayBox.js";
 import { MdClose } from "react-icons/md"
 
 const Coaches = () => {
@@ -59,7 +60,7 @@ const Coaches = () => {
                         <button className="bg-gray-400 rounded-lg p-1" id={_id} onClick={(e) => setDeleteId(e.target.id)}>Delete</button></li>)}
                     </ul>
                 ) : <p>No coaches to display</p>}
-                {deleteId && (<div className=" fixed top-1/4 mx-auto inset-x-0 max-w-md text-center bg-slate-200 p-4 rounded-lg border-black shadow-lg">
+                {deleteId && <OverlayBox>
                  {!confirmMessage ? (<form onSubmit={handleDelete}>
                     <h2 className="text-logoRed">Are you sure you want to delete this user?</h2>
                     <div className="flex justify-evenly my-4">
@@ -72,7 +73,7 @@ const Coaches = () => {
                     </div>
                     <div className="mt-2 mb-6 text-logoRed">{confirmMessage}</div>
                 </div>)}
-            </div>)}
+                </OverlayBox>}
             
         </div>
     )
