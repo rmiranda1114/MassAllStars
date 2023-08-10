@@ -1,13 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import NavLinks from "./NavLinks.js";
 import { useNavigate, Outlet } from 'react-router-dom';
-import UserContext from "../context/UserProvider";
+import useUser from '../hooks/useUser.js'
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md"
 
 function Navbar () {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
   const [menuToggle, setMenuToggle] = useState(false);
   
   const handleLogout =  async () => {

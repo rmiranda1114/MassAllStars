@@ -27,14 +27,14 @@ const playerSchema = new mongoose.Schema(
         uniformSize: {
             type: String
         },
-        prefferedNumber : {
-            uniformNumber1: {
+        prefNum : {
+            num1: {
             type: Number
             },
-            uniformNumber2: {
+            num2: {
                 type: Number
             },
-            uniformNumber3: {
+            num3: {
                 type: Number
             }
         },
@@ -47,7 +47,7 @@ const playerSchema = new mongoose.Schema(
         medicalCondition: {
             type: String
         },
-        parentId: {
+        parent: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'parent'
         },
@@ -55,10 +55,10 @@ const playerSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'team'
         },
-        emergencyContact: {
+        emergency: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'emergencyContact'
-        }
+        }]
     }
 );
 

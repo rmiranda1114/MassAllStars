@@ -6,21 +6,21 @@ router.post('/', async (req, res, next)=> {
     try{
         const newForm = req.body.formData;
         let newEmergency = new EmergencyContact({
-            name: newForm.emergencyName1,
-            relationship: newForm.emergencyRelationship1,
+            name: newForm.name,
+            relationship: newForm.relationship,
             address: {
-                street: newForm.emergencyAddress1,
-                city: newForm.emergencyCity1,
-                state: newForm.emergencyState1,
-                zipcode: newForm.emergencyZipcode1
+                street: newForm.street,
+                city: newForm.city,
+                state: newForm.state,
+                zipcode: newForm.zipcode
             },
-            phoneMain: newForm.emergencyHomephone1,
-            phoneAlt: newForm.emergencyCellphone1
+            phoneMain: newForm.phoneMain,
+            phoneAlt: newForm.phoneAlt,
+            player: []
         });
 
         const savedEmergency = await newEmergency.save();
-        req.emergency = savedEmergency._id;
-        next()
+        res.status(201).send(savedEmergency._id);
         
     }
     catch (ex) {

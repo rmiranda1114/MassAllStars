@@ -26,10 +26,10 @@ const parentSchema = new mongoose.Schema(
                 type: String,
                 required: true,
                 minlength: 2,
-                maxlength: 2
+                maxlength: 20
             },
             zipcode: {
-                type: Number,
+                type: String,
                 required: true,
                 minlength: 5,
                 maxlength: 5,
@@ -46,7 +46,11 @@ const parentSchema = new mongoose.Schema(
             type: String,
             maxlength: 20,
         },
-        acknowlegment: {
+        email: {
+            type: String,
+            maxlength: 50
+        },
+        acknowledgment: {
             type: Boolean
         },
         kids: [

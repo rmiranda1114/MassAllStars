@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const {Player, validate} = require('../models/player.js');
-const { Parent } = require('../models/parent.js');
 
 
 router.post('/', async (req, res, next)=> {
@@ -13,34 +12,30 @@ router.post('/', async (req, res, next)=> {
 
         const newForm = req.body.formData;
         let newPlayer = new Player({
-            name: newForm.playerName,
-            dob: newForm.playerDOB,
-            age: newForm.playerAge,
-            grade: newForm.playerGrade,
-            school: newForm.playerSchool,
+            name: newForm.name,
+            dob: newForm.dob,
+            age: newForm.age,
+            grade: newForm.grade,
+            school: newForm.school,
             sport: newForm.sport,
             uniformSize: newForm.uniformSize,
-            prefferedNumber: {
-                uniformNumber1: newForm.uniformNumber1,
-                uniformNumber2: newForm.uniformNumber2,
-                uniformNumber3: newForm.uniformNumber3
+            prefNum: {
+                num1: newForm.prefNum1,
+                num2: newForm.prefNum2,
+                num3: newForm.prefNum3
             },
             team: "",
             playerNumber: null,
-            medicalCondition: newForm.playerMedical,
-            parentId: req.parent,
+            medicalCondition: newForm.medicalCondition,
+            parent: newForm.parent,
             teamId: null,
-            emergencyContact: [req.emergency]
+            emergency: newForm.emergency
         });
         
     
         const savedPlayer = await newPlayer.save();
-        
-        const parent = await Parent.findById(req.parent);
-        parent.kids = [savedPlayer._id];
-        await parent.save();
 
-        res.status(201).json({ message: "Player has been successfully registered"});
+        res.status(201).send(savedPlayer._id);
        
         
     }

@@ -11,7 +11,6 @@ const emergencyContactSchema = new mongoose.Schema(
         },
         relationship: {
             type: String,
-            minlength: 5,
             maxlength: 50
         },
         address: {
@@ -31,10 +30,10 @@ const emergencyContactSchema = new mongoose.Schema(
                 type: String,
                 required: true,
                 minlength: 2,
-                maxlength: 2
+                maxlength: 20
             },
             zipcode: {
-                type: Number,
+                type: String,
                 required: true,
                 minlength: 5,
                 maxlength: 5,
@@ -50,7 +49,13 @@ const emergencyContactSchema = new mongoose.Schema(
         phoneAlt: {
             type: String,
             maxlength: 20,
-        }
+        },
+        player: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'players'
+            }
+        ]
     }
 )
 

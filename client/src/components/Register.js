@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import Input from "../wraps/Input";
 
 
 
@@ -83,7 +84,6 @@ const Register = () => {
         setErrMsg('');
     },[formData])
 
-
     return (
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <h1 className="my-4 text-xl font-medium text-center">Registration Form</h1>
@@ -92,10 +92,8 @@ const Register = () => {
 
                     {/* Page 1 */}
                     {pageNumber == 1 && <>
-                        <label className="block text-sm font-medium text-gray-700">Player's Name: </label>
-                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="text" onChange={handleChange} name="playerName" value={formData.playerName} placeholder="Child's Name"required/>
-                        <label className="block text-sm font-medium text-gray-700">Players DOB: </label>
-                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" type="date" onChange={handleChange} name="playerDOB" value={formData.playerDOB} required/>
+                        <Input id="playerName" label="Player's Name" value={formData.playerName} onChange={handleChange} required />
+                        <Input id="playerDOB" label="Player's DOB" value={formData.playerDOB} onChange={handleChange} type="date" />
                         <div className="flex justify-evenly items-center my-4">
                             <label className="block text-sm font-medium" htmlFor="playerAge">Age: </label>
                             <input className=" p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="playerAge" type="number" min="5" max ="17" onChange={handleChange} name="playerAge" value={formData.playerAge} required/>
