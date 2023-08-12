@@ -1,4 +1,4 @@
-const { User, validate } = require('../models/user.js');
+const { Coach, validate } = require('../models/coach.js');
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -12,14 +12,14 @@ router.post('/', authorize, async (req, res, next)=> {
         const { error, value } = validate({ name, email, password });
         if (error) return res.status(400).json({ message: 'Unable to validate' });
 
-        // Checks if user already exsist.
-        let user = await User.findOne({ email: email });
-        if (user) return res.status(409).json({ message: 'Email is already registered.' });
+        // Checks if coach already exsist.
+        let coach = await User.findOne({ email: email });
+        if (coach) return res.status(409).json({ message: 'Email is already registered.' });
 
         //Use bcrypt to hash password
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
-        user = new User({
+        coach = new Coach({
             name: name,
             email: email,
             password: hashPassword,
@@ -27,8 +27,8 @@ router.post('/', authorize, async (req, res, next)=> {
             refreshtoken: ""
         });
      
-        //Store new user
-        const result = await user.save();
+        //Store new coach
+        const result = await coach.save();
 
         res.status(200).json({ message: `Coach ${result.name} created`});
     }

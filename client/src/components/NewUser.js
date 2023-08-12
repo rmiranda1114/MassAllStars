@@ -64,7 +64,7 @@ const NewUser = () => {
         let isMounted = true;
         const controller = new AbortController();
         try{
-            let response = await axiosPrivate.post('/api/users', {
+            let response = await axiosPrivate.post('/api/createCoach', {
                 signal: controller.signal,
                 name: name,
                 email: email,

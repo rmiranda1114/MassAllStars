@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
-//require('dotenv').config(); // dont need?
-const { User } = require('../models/user.js');
+const { Coach } = require('../models/coach.js');
 
 router.post('/', async (req, res, next) => {
    
@@ -12,22 +11,22 @@ router.post('/', async (req, res, next) => {
         const { error } = validate(req.body);
         if (error) return res.status(400).json({ error: error.details[0].message });
         
-        // Checks if email is a user
-        let user = await User.findOne({email: req.body.email});
-        if (!user) return res.status(401).json({ error: 'Invalid email or password.' });
+        // Checks if email is a coach
+        let coach = await Coach.findOne({email: req.body.email});
+        if (!coach) return res.status(401).json({ error: 'Invalid email or password.' });
 
         //Uses bcrypt to validate password
-        const validPassword = await bcrypt.compare(req.body.password, user.password);
+        const validPassword = await bcrypt.compare(req.body.password, coach.password);
         if (!validPassword) res.status(401).json({ error: 'Invalid email or password.' });
         //Creates JWT token
-        const accessToken = user.generateAuthToken();
-        const refreshToken = user.generateRefreshToken();
+        const accessToken = coach.generateAuthToken();
+        const refreshToken = coach.generateRefreshToken();
         //Saves Refresh Token in DB
-        user.refreshtoken = refreshToken;
-        await user.save();
+        coach.refreshtoken = refreshToken;
+        await coach.save();
         //Sends cookie and tokens
-        await user.sendRefreshToken(res, refreshToken);
-        user.sendAccessToken(req, res, accessToken);
+        await coach.sendRefreshToken(res, refreshToken);
+        coach.sendAccessToken(req, res, accessToken);
 
     }
     catch (ex) {

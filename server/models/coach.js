@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 
-const userSchema = new mongoose.Schema(
+const coachSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema(
                 //Joi validates real length. This length for hash.
                 maxlength: 1024
         },
+        team: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'team'
+            }
+        ],
         admin: {
             type: Boolean
         },
@@ -34,19 +40,19 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-userSchema.methods.generateAuthToken = function () {
+coachSchema.methods.generateAuthToken = function () {
     return jwt.sign({ _id: this._id, email: this.email, admin: this.admin }, process.env.jwtPrivateKey, {expiresIn: '15m'});
 }
 
-userSchema.methods.generateRefreshToken = function () {
+coachSchema.methods.generateRefreshToken = function () {
     return jwt.sign({ _id: this._id, email: this.email, admin: this.admin }, process.env.jwtRefreshKey, {expiresIn: '1d'});
 }
 
-userSchema.methods.sendAccessToken = function (req, res, accessToken) {
+coachSchema.methods.sendAccessToken = function (req, res, accessToken) {
     res.header('Authorization', accessToken).status(200).json({ message: 'Login Successful', _id: this._id, user: this.name, admin: this.admin, accessToken: accessToken }) 
 }
 
-userSchema.methods.sendRefreshToken = function (res, refreshToken) {
+coachSchema.methods.sendRefreshToken = function (res, refreshToken) {
     res.cookie('JWT', refreshToken, {
         httpOnly: true,
         sameSite: 'none',
@@ -55,9 +61,9 @@ userSchema.methods.sendRefreshToken = function (res, refreshToken) {
     })
 }
 
-const User = mongoose.model('users', userSchema);
+const Coach = mongoose.model('coach', coachSchema);
 
-function validateUser (user) {
+function validateCoach (coach) {
     const schema = Joi.object({
         name: Joi.string().min(3).max(100).required(),
         email: Joi.string().min(5).max(255).required().email(),
@@ -65,9 +71,9 @@ function validateUser (user) {
         
     })
 
-    return  schema.validate(user);
+    return  schema.validate(coach);
     
 }
 
-module.exports.User = User;
-module.exports.validate = validateUser;
+module.exports.Coach = Coach;
+module.exports.validate = validateCoach;

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {User} = require('../models/user.js');
+const { Coach } = require('../models/coach.js');
 const authorize = require('../middleware/authorize.js');
 
 
@@ -8,7 +8,7 @@ const authorize = require('../middleware/authorize.js');
 
 router.get('/', authorize, async (req, res, next) => {
     try{
-        let coaches = await User.find();
+        let coaches = await Coach.find();
         res.status(200).send(coaches);
     }
     catch (err) {

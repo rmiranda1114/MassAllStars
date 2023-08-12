@@ -65,3 +65,17 @@
 20230810	14:37:25	8e1024f4-e172-479c-aaca-7b7eb4dc4d15	StrictPopulateError: Cannot populate path `parentId` because it is not in your schema. Set the `strictPopulate` option to false to override.
 20230810	14:37:35	e98cb938-f92f-42c4-8979-f121dfd03fde	StrictPopulateError: Cannot populate path `parentId` because it is not in your schema. Set the `strictPopulate` option to false to override.
 20230810	14:37:35	cc9f5c0a-a997-4264-a92a-a99677427ffc	StrictPopulateError: Cannot populate path `parentId` because it is not in your schema. Set the `strictPopulate` option to false to override.
+20230810	14:53:09	3d508968-981a-4a9f-aee9-4f9b14bbe25d	StrictPopulateError: Cannot populate path `parentId` because it is not in your schema. Set the `strictPopulate` option to false to override.
+20230810	14:53:09	61877548-5b44-4943-871a-d67a25178af7	StrictPopulateError: Cannot populate path `parentId` because it is not in your schema. Set the `strictPopulate` option to false to override.
+20230810	18:31:35	5f2f6161-6919-456d-acce-8ab645b329cd	TypeError: Cannot destructure property 'team' of 'req.body.formData' as it is undefined.
+20230810	19:27:00	027f392f-e407-40ef-8409-8e495f34053c	ValidationError: team validation failed: name: Path `name` is required.
+20230810	19:29:39	1d5a4f0b-f00f-4d72-8cb8-6da854cb0141	ValidationError: team validation failed: name: Path `name` is required.
+20230810	19:34:15	a49f6f20-3102-4faf-b2c7-6cf66c2b3fa9	ValidationError: team validation failed: name: Path `name` is required.
+20230810	19:36:15	e2e1790e-2b7e-49aa-8c7b-136bd196b7ec	ReferenceError: coach is not defined
+20230810	19:37:09	0957a907-e8e2-431b-9bb9-47a75cdb4295	TypeError: Cannot read properties of null (reading '_id')
+20230811	08:48:14	b8641d59-7e41-4397-9774-3dac94a5bc88	ReferenceError: Cannot access 'team' before initialization
+20230811	08:52:08	8300101b-267d-42bb-ae5c-2e13fcb275ab	ReferenceError: Cannot access 'team' before initialization
+20230811	08:56:51	ebbc24ab-4d2e-4dfa-a97a-04c3a0dc53ab	ReferenceError: Cannot access 'team' before initialization
+20230811	08:57:32	1c2a9e79-bf8d-4e32-a4ad-9361fdaabe50	ReferenceError: Cannot access 'team' before initialization
+20230811	09:07:48	6220ed1b-d263-44b7-b3f8-29d5306424cd	ValidationError: team validation failed: asstCoach: Cast to ObjectId failed for value "" (type string) at path "asstCoach" because of "BSONError"
+20230811	20:30:05	9bf49790-8934-4f8a-8ed7-dc46587951af	TypeError: Cannot read properties of undefined (reading 'name')

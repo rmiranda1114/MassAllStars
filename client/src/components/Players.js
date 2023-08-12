@@ -12,7 +12,7 @@ const Players = () => {
     
     const loadPlayers = async ( isMounted, controller ) => {
         try {
-            const response = await axiosPrivate.get('/api/search', {
+            const response = await axiosPrivate.get('/api/searchPlayer', {
                 signal: controller.signal,
             });
             isMounted && setResult(response.data);

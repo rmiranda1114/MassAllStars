@@ -1,20 +1,28 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
+import { useNavigate } from "react-router-dom";
+import FlexContainer from "../wraps/FlexContainer.js";
 import OverlayBox from "../wraps/OverlayBox.js";
-import { MdClose } from "react-icons/md"
+import Button from "../wraps/Button.js"
 
 const Coaches = () => {
-    const [coaches, setCoaches] = useState([]);
-    const [deleteId, setDeleteId] = useState("");
-    const [confirmMessage, setConfirmMessage] = useState("")
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const [result, setResult] = useState([]);
+    const [deleteCoach, setDeleteCoach] = useState("");
 
-    const getCoaches = async (controller, isMounted) => {
+    const loadCoach = async () => {
+        let isMounted = true;
+        const controller = new AbortController();
         try {
-            const response = await axiosPrivate.get('/api/coaches', {
+            const response = await axiosPrivate.get('/api/searchCoach', {
                 signal: controller.signal, 
             });
-            isMounted && setCoaches(response.data);
+            isMounted && setResult(response.data);
+            return() => {
+                isMounted = false;
+                controller.abort();
+            }
         } catch (err) {
             if (err.code === 'ERR_CANCELED') return;
         }
@@ -22,60 +30,41 @@ const Coaches = () => {
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        let isMounted = true;
-        const controller = new AbortController();
         try {
             const res = await axiosPrivate.post('/api/deleteCoach', {
-                signal: controller.signal,
-                id: deleteId
+                id: deleteCoach
             })
-            isMounted && setConfirmMessage(res.data.message);
+            if (res.status == 200) {
+                loadCoach();
+                setDeleteCoach("")
+            }
         } catch (err) {
             if (err.code === 'ERR_CANCELED') return;
-        }
-        return() => {
-            isMounted = false;
-            controller.abort();
         }
     };
 
     useEffect(() => {
-        let isMounted = true;
-        const controller = new AbortController();
-        getCoaches(controller, isMounted);
-        return() => {
-            isMounted = false;
-            controller.abort();
-        }
-
-    },[deleteId]);
+        loadCoach();
+    },[]);
 
     return (
-        <div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
-            <h5 className="text-center underline font-bold mb-2">Active Coaches</h5>
-            {coaches?.length
-                ? (
-                    <ul >
-                        {coaches.map(({ _id, name }) => <li className="flex justify-between items-center my-4" key={_id} id={_id}><span>{name}</span>
-                        <button className="bg-gray-400 rounded-lg p-1" id={_id} onClick={(e) => setDeleteId(e.target.id)}>Delete</button></li>)}
-                    </ul>
-                ) : <p>No coaches to display</p>}
-                {deleteId && <OverlayBox>
-                 {!confirmMessage ? (<form onSubmit={handleDelete}>
-                    <h2 className="text-logoRed">Are you sure you want to delete this user?</h2>
-                    <div className="flex justify-evenly my-4">
-                        <button className="bg-gray-400 rounded-lg px-2 py-1" onClick={handleDelete}>Delete</button>
-                        <button className="bg-gray-400 rounded-lg px-2 py-1" type="button" onClick={() => setDeleteId("")}>Cancel</button>
+        <FlexContainer>
+            {!result ? <div>No data available</div> :
+                <div>
+                    {result.map(({ _id, name }) => <li className="flex justify-between items-center my-4" key={_id} id={_id}><span>{name}</span>
+                    <button className="bg-gray-400 rounded-lg p-1" id={_id} onClick={(e) => setDeleteCoach(e.target.id)}>Delete</button></li>)}
+                </div>}
+
+                <Button style={{ width: "w-1/2" }} handleClick={() => navigate('./add')}>Add Coach</Button>
+                
+                {deleteCoach && <OverlayBox>
+                    <p className="my-4 text-logoRed text-lg">Are you sure you want to delete coach?</p>
+                    <div className="flex gap-2 justify-center">
+                        <Button style={{ width: "w-1/4" }} handleClick={handleDelete}>Yes</Button>
+                        <Button style={{ width: "w-1/4" }} handleClick={() => setDeleteCoach("")}>No</Button>
                     </div>
-                </form>) : (<div className="flex-col">
-                    <div className="text-right">
-                        <div className="inline-block p-1 justify-self-end" onClick={() => { setDeleteId(""); setConfirmMessage("")}}><MdClose /></div>
-                    </div>
-                    <div className="mt-2 mb-6 text-logoRed">{confirmMessage}</div>
-                </div>)}
                 </OverlayBox>}
-            
-        </div>
+            </FlexContainer>
     )
 }
 

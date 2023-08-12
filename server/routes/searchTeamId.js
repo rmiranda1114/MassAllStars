@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { Player } = require('../models/player.js');
+const { Team } = require('../models/team.js');
 const authorize = require('../middleware/authorize.js');
 
 router.post('/', authorize, async (req, res, next) => {
    
     try{
-        const playerId = req.body.playerId;
-        const player = await Player.findById(playerId)
-        .populate(['parent', 'emergency']);
+        const { teamId } = req.body;
+        const team = await Team.findById(teamId)
+        .populate(['headCoach', 'asstCoach']);
 
-        res.status(200).send(player);    
+        res.status(200).send(team);    
     }
     catch (err) {
         next(err);

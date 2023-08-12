@@ -1,16 +1,14 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const { Player } = require('../models/player.js');
+const { Parent } = require('../models/parent.js');
 const authorize = require('../middleware/authorize.js');
 
 router.post('/', authorize, async (req, res, next) => {
-   
-    try{
-        const playerId = req.body.playerId;
-        const player = await Player.findById(playerId)
-        .populate(['parent', 'emergency']);
 
-        res.status(200).send(player);    
+    try{
+        let parent = await Parent.findById(req.body.parentId);
+        res.status(200).send(parent);
     }
     catch (err) {
         next(err);

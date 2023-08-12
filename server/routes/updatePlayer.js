@@ -9,25 +9,15 @@ router.post('/', authorize, async (req, res, next)=> {
         // const { error, value } = validate(req.body.formData);
         // if (error) return res.status(400).json({ error = error.message });
 
-        const id = req.body.formData.id
-        const newForm = req.body.formData;
+        const { playerId, team, number } = req.body;
 
-        const player = await Player.findByIdAndUpdate(id);
-        player.name = newForm.playerName || player.name,
-        player.dob = newForm.playerDOB || player.dob,
-        player.age = newForm.playerAge || player.age,
-        player.grade = newForm.playerGrade || player.grade,
-        player.school = newForm.playerSchool || player.school,
-        player.sport = newForm.sport || player.sport,
-        player.uniformSize = newForm.uniformSize || player.uniformSize,
-        player.team = newForm.team || player.team,
-        player.playerNumber = newForm.playerNumber || player.playerNumber,
-        player.medicalCondition = newForm.playerMedical || player.medicalCondition
+        const player = await Player.findById(playerId);
+        player.team = team.name;
+        player.playerNumber = number;
+        player.teamId = team._id;
 
         const updatedPlayer = await player.save();
-        req.parent = player.parentId;
-        req.emergencyContact = player.emergencyContact;
-        next();
+        res.status(201).send(updatedPlayer);
     }
     catch (ex) {
         next (ex);

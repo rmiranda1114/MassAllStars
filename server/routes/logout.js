@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User } = require('../models/user');
+const { Coach } = require('../models/coach');
 
 
 
@@ -12,14 +12,14 @@ router.post('/', async (req, res, next) => {
     const id = req.body.userId;
 
     try {
-        const user = await User.findOne({ _id: id });
-        if (!user) {
+        const coach = await Coach.findOne({ _id: id });
+        if (!coach) {
             res.clearCookie('JWT', { httpOnly: true, sameSite: 'None', secure: true, path: '/refresh_token'});
             return res.status(200).json({ message: "logged out" });
         }
 
-        user.refreshtoken = '';
-        const result = await user.save();
+        coach.refreshtoken = '';
+        const result = await coach.save();
 
         res.clearCookie('JWT', { httpOnly: true, sameSite: 'None', secure: true }); //secure: true - for https
         res.sendStatus(204);

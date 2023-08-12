@@ -12,8 +12,10 @@ import NewUser from './components/NewUser.js';
 import Coaches from './components/Coaches.js';
 import Players from './components/Players.js';
 import PlayerDetails from './components/PlayerDetails.js';
-import PlayerList from './components/PlayerList.js';
-import PlayerUpdate from './components/PlayerUpdate.js';
+import PlayerContainer from './components/playerUpdate/PlayerContainer.js';
+import PlayerUpdate from './components/playerUpdate/PlayerUpdate.js';
+import Teams from './components/Teams.js';
+import TeamDetail from './components/TeamDetail.js';
 import NoMatch from './components/NoMatch.js';
 import Upload from './components/upload.js';
 import Unauthorized from './components/Unauthorized.js';
@@ -41,9 +43,11 @@ function App() {
             <Route element={<RequireAdmin />}>
               <Route path="coach" element={<CoachDashboard />}>
                 <Route path="coaches" element={<Coaches />} />
-                <Route path="newuser" element={<NewUser />} />
-                <Route path="find" element={<PlayerList />} />
+                <Route path="coaches/add" element={<NewUser />} />
+                <Route path="find" element={<PlayerContainer />} />
                 <Route path="find/:playerId" element={<PlayerUpdate />} />
+                <Route path="teams" element={<Teams />} />
+                <Route path="teams/:teamId" element={<TeamDetail />} />
                 <Route path="upload" element={<Upload />} />
               </Route>
             </Route>

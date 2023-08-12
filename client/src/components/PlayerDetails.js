@@ -9,14 +9,19 @@ const PlayerDetails = () => {
     const { playerId } = useParams();
     const [result, setResult] = useState();
 
-    const loadPlayerDetails = async ( isMounted, controller ) => {
+    const loadPlayerDetails = async () => {
+        let isMounted = true;
+        const controller = new AbortController();
         try {
-            const response = await axiosPrivate.post(`/api/search/${playerId}`, {
+            const response = await axiosPrivate.post(`/api/searchPlayer/${playerId}`, {
                 signal: controller.signal,
                 playerId: `${playerId}`
             },);
             isMounted && setResult(response.data);
-            
+            return() => {
+                isMounted = false;
+                controller.abort();
+            }
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
@@ -26,13 +31,7 @@ const PlayerDetails = () => {
     };
 
     useEffect(() => {
-        let isMounted = true;
-        const controller = new AbortController();
-        loadPlayerDetails( isMounted, controller );
-        return() => {
-            isMounted = false;
-            controller.abort();
-        }
+      loadPlayerDetails();
     },[])
 
     return (
