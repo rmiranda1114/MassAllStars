@@ -1,16 +1,19 @@
-const Button = ({ children, handleClick, style = {}, id, ...props }) => {
-
-    const width = style.width || 'w-full';
-    const bgcolor = style.bgcolor || 'bg-gray-400';
-    const padding = style.padding || 'p-2';
-    const rounded = style.rounded || 'rounded-lg';
-    const margin = style.margin || 'my-2';
-
-
+const Button = ({
+    width = 'w-full',
+    bg = 'bg-gray-400',
+    padding = 'p-2',
+    rounded = 'rounded-lg',
+    margin = 'my-2',
+    hover = 'hover:cursor-pointer`',
+    otherStyle = "",
+    children,
+    handleClick,
+    id,
+     ...props }) => {
 
     return (
-        <div className={`${width} ${bgcolor} ${padding} ${rounded} ${margin} font-medium text-center hover:cursor-pointer m-auto`} 
-            onClick={handleClick} id={id}>
+        <div className={`${width} ${bg} ${padding} ${rounded} ${margin} ${hover} ${otherStyle} font-medium text-center m-auto` } 
+            onClick={handleClick} id={id} {...props}>
             {children}
         </div>
     )

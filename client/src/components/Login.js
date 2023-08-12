@@ -2,6 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useUser from "../hooks/useUser.js";
 import axios from '../api/axios.js';
+import FlexContainer from "../wraps/FlexContainer.js";
+import Button from "../wraps/Button.js";
+import Input from "../wraps/Input.js";
 
 
 
@@ -67,23 +70,20 @@ function Login () {
     },[loginData])
 
     return (
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="bg-gray-300 p-10 rounded-xl shadow-black shadow-lg">
-                <p ref={errRef} className={errMsg ? "flex" : "hidden"} aria-live="assertive">{errMsg}</p>
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                    <label className="block text-sm font-medium text-gray-700" htmlFor="user" >Email Address: </label>
-                    <div  className="mt-1">
-                        <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="user" type="email" name="email" ref={userRef} onChange={handleChange} value={loginData.email} required />
-                    </div>
-                    <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password: </label>
-                    <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="password" type="text" name="password" onChange={handleChange} value={loginData.password} required />
-                    
-                    <button className="bg-indigo-400 text-white rounded-xl p-2 hover:text-blue-700 w-full">Login</button>
-                    
-                </form>
-            </div>
-            
-        </div>
+        <FlexContainer>
+            <p ref={errRef} className={errMsg ? "flex" : "hidden"} aria-live="assertive">{errMsg}</p>
+            <form className="space-y-6" onSubmit={handleSubmit}>
+                <label className="block text-sm font-medium text-gray-700" htmlFor="user" >Email Address: </label>
+                <div  className="mt-1">
+                    <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="user" type="email" name="email" ref={userRef} onChange={handleChange} value={loginData.email} required />
+                </div>
+                <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password: </label>
+                <input className="w-full p-2 rounded-lg shadow-sm border focus:outline-none focus:border-indigo-400" id="password" type="text" name="password" onChange={handleChange} value={loginData.password} required />
+                
+                <Button bg="bg-indigo-400" otherStyle="text-white hover:text-blue-700" handleClick={handleSubmit}>Login</Button>
+                
+            </form>
+        </FlexContainer>
     )
 }
 

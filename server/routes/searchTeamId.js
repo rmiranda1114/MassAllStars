@@ -8,7 +8,7 @@ router.post('/', authorize, async (req, res, next) => {
     try{
         const { teamId } = req.body;
         const team = await Team.findById(teamId)
-        .populate(['headCoach', 'asstCoach']);
+        .populate(['headCoach', 'asstCoach', 'players']);
 
         res.status(200).send(team);    
     }

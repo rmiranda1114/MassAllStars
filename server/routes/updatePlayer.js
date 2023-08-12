@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {Player, validate} = require('../models/player.js');
+const { Player, validate } = require('../models/player.js');
+const { Team } = require('../models/team.js');
 const authorize = require('../middleware/authorize.js');
 
 router.post('/', authorize, async (req, res, next)=> {
@@ -17,12 +18,27 @@ router.post('/', authorize, async (req, res, next)=> {
         player.teamId = team._id;
 
         const updatedPlayer = await player.save();
-        res.status(201).send(updatedPlayer);
+        next()
     }
     catch (ex) {
         next (ex);
     }
     
 });
+
+router.post('/', authorize, async (req, res, next)=> {
+    try{
+        const team = await Team.findById(req.body.team._id);
+        team.players = [ ...team.players, req.body.playerId ];
+
+        const updatedTeam = await team.save();
+        res.status(201).send(updatedTeam);
+
+    }
+    catch (ex) {
+        next (ex);
+    }
+});
+
 
 module.exports = router;

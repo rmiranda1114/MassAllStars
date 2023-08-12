@@ -94,6 +94,16 @@ const PlayerUpdate = () => {
         <FlexContainer>
             {player && <div className="border border-black p-4 mb-4 flex-col">
                 <PlayerInfo player={player}/>
+                <div className="flex-col mt-8 mb-1 gap-1" onClick={(e) => navigate(`../teams/${player.teamId}`)}>
+                    <div>
+                        <div className="basis-1/6">Team: </div>
+                        <div className="basis-1/3 bg-white rounded-md px-2">{player.team}</div>
+                    </div>
+                    <div>
+                        <div className="basis-1/3">Number: </div>
+                        <div className="basis-1/6 bg-white rounded-md px-2">{player.playerNumber}</div>
+                    </div>
+                </div>
                 {isAssign && <div>
                     <div className="flex justify-evenly">
                         <div className="basis-2/3">

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
 import PlayerDetailsCard from "./PlayerDetailsCard.js";
+import FlexContainer from "../wraps/FlexContainer.js";
+import Button from "../wraps/Button.js";
 
 const PlayerDetails = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -14,9 +16,8 @@ const PlayerDetails = () => {
         const controller = new AbortController();
         try {
             const response = await axiosPrivate.post(`/api/searchPlayer/${playerId}`, {
-                signal: controller.signal,
                 playerId: `${playerId}`
-            },);
+            },{signal: controller.signal});
             isMounted && setResult(response.data);
             return() => {
                 isMounted = false;
@@ -35,10 +36,10 @@ const PlayerDetails = () => {
     },[])
 
     return (
-        <div className="my-8 mx-auto max-w-lg flex-col bg-gray-300 p-7 rounded-xl shadow-black shadow-lg text-base font-medium">
+        <FlexContainer>
             {result ? <PlayerDetailsCard player={result}/> : <div className="text-center">Loading...</div>}
-            <button className="w-full p-2 bg-gray-400 rounded-lg" onClick={() => navigate('/players')}>Go Back</button>
-        </div>
+            <Button handleClick={() => navigate('/players')}>Go Back</Button>
+        </FlexContainer>
     )
 
 

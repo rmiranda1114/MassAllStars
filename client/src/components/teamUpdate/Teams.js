@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
-import FlexContainer from "../wraps/FlexContainer.js";
-import Button from "../wraps/Button.js";
-import Input from "../wraps/Input.js";
-import OverlayBox from "../wraps/OverlayBox.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate.js";
+import FlexContainer from "../../wraps/FlexContainer.js";
+import FlexCard from "../../wraps/FlexCard.js";
+import Button from "../../wraps/Button.js";
+import Input from "../../wraps/Input.js";
+import VerifyDelete from "../../wraps/VerifyDelete.js";
+import { BsTrash3 } from "react-icons/bs"
 
 const Teams = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -61,32 +63,31 @@ const Teams = () => {
        
 
     return (
-        <FlexContainer>
+        <div>
+            <FlexContainer>
+                <Input id="team" value={addTeam} onChange={(e) => setAddTeam(e.target.value)} placeholder={"New team name"} />
+                <Button style={{ width: "w-1/2" }} handleClick={handleAddTeam}>Add Team</Button>
+            </FlexContainer>
+
             {!result ? <div>No Data Available</div> : 
-            <div className="mb-8">
+            <div className=" flex justify-center flex-wrap gap-4">
             {result.map((team) => {
-                return <div key={team._id} className="flex justify-between items-center">
-                    <div className=" text-xl font-medium">{team.name}</div>
-                    <div className="flex gap-2">
-                        <Button id={team._id} handleClick={(e) => navigate(`./${e.target.id}`)}>Assign</Button>
-                        <Button id={team._id} handleClick={(e) => setDeleteTeam(e.target.id)}>Delete</Button>
+                return <FlexCard key={team._id} id={team._id} width="w-40" onClick={(e) => navigate(`./${e.target.id}`)}>
+                    <div className="flex justify-end p-2 hover:cursor-pointer" id={team._id} >
+                        <BsTrash3  onClick={(e) => setDeleteTeam(e.target.parentElement.id)}/>
                     </div>
-                </div>
+                    <div className="flex justify-center text-xl font-medium hover:cursor-pointer" id={team._id} onClick={(e) => navigate(`./${e.target.id}`)}>
+                        {team.name}
+                    </div>
+                </FlexCard>
             })}
             </div>}
 
-            <Input id="team" value={addTeam} onChange={(e) => setAddTeam(e.target.value)} placeholder={"New team name"} />
-            <Button style={{ width: "w-1/2" }} handleClick={handleAddTeam}>Add Team</Button>
+            
 
-            {deleteTeam && <OverlayBox>
-                    <p className="my-4 text-logoRed text-lg">Are you sure you want to delete team?</p>
-                    <div className="flex gap-2 justify-center">
-                        <Button style={{ width: "w-1/4" }} handleClick={handleDelete}>Yes</Button>
-                        <Button style={{ width: "w-1/4" }} handleClick={() => setDeleteTeam("")}>No</Button>
-                    </div>
-                </OverlayBox>}
+            {deleteTeam && <VerifyDelete item="team" handleYes={handleDelete} handleNo={() => setDeleteTeam("")}/>}
 
-        </FlexContainer>
+        </div>
     )
 }
 

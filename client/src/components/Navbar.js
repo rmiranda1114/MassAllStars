@@ -36,7 +36,7 @@ function Navbar () {
     return (
       <main>
         <div className="w-full h-24 bg-logoRed px-4 flex justify-between items-center">
-          <div className="h-full" onClick={() => { setMenuToggle(false); navigate("/home"); }}>
+          <div className="h-full" onClick={() => { setMenuToggle(false); navigate("/"); }}>
             <img className=" max-h-full" src="../images/MASLogo.jpg"/>
           </div>
           <nav className="hidden sm:flex text-lg gap-6 font-semibold">
@@ -52,7 +52,7 @@ function Navbar () {
         
 
         {menuToggle && 
-          <div className="absolute sm:hidden top-24 right-0 h-1/3 bg-gray-300 opacity-90 w-52 text-center" onClick={()=>menuClick()}>
+          <div className="absolute sm:hidden top-24 right-0 h-fit pb-8 bg-gray-300 opacity-90 w-52 text-center" onClick={()=>menuClick()}>
             <nav className="h-full flex-col content-evenly">
               <NavLinks user={user} handleLogout={handleLogout} style={"my-8 hover:text-indigo-500"}/>
             </nav>

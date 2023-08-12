@@ -79,3 +79,6 @@
 20230811	08:57:32	1c2a9e79-bf8d-4e32-a4ad-9361fdaabe50	ReferenceError: Cannot access 'team' before initialization
 20230811	09:07:48	6220ed1b-d263-44b7-b3f8-29d5306424cd	ValidationError: team validation failed: asstCoach: Cast to ObjectId failed for value "" (type string) at path "asstCoach" because of "BSONError"
 20230811	20:30:05	9bf49790-8934-4f8a-8ed7-dc46587951af	TypeError: Cannot read properties of undefined (reading 'name')
+20230812	15:36:24	6318a948-170a-47da-a446-456c2de3333e	StrictPopulateError: Cannot populate path `player` because it is not in your schema. Set the `strictPopulate` option to false to override.
+20230812	15:36:24	919a875a-ea2e-41c2-82e6-af90e5ce4baf	StrictPopulateError: Cannot populate path `player` because it is not in your schema. Set the `strictPopulate` option to false to override.
+20230812	16:55:16	bf7a2351-1593-4863-a79a-d235fea66c96	TypeError: Cannot read properties of undefined (reading 'name')

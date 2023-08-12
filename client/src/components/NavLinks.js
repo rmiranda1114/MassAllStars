@@ -9,7 +9,7 @@ function NavMenu ({ user, handleLogout, style = "" }) {
             <div className={style}><NavLink to="/gallery">Gallery</NavLink></div>
             <div className={style}><NavLink to="/register">Register</NavLink></div>
             <div className={style}><NavLink to={user.admin ? "/coach" : "/players"}>Coach</NavLink></div>
-            {!user.accesstoken ? <div className={style}><NavLink to="/login">Login</NavLink></div> : <button className={style} onClick={handleLogout}>Logout</button>}
+            {!user.accesstoken ? <div className={style}><NavLink to="/login">Login</NavLink></div> : <div className={style} onClick={handleLogout}>Logout</div>}
         </>
     )
 }
