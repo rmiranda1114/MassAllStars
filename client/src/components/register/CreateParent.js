@@ -32,10 +32,9 @@ const CreateParent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('api/createParent',
-                JSON.stringify({
-                    formData
-                }),
+            const res = await axios.post('api/createParent',{
+                    formData: formData
+                },
                 {
                 headers: {
                     "Content-Type": 'application/json'

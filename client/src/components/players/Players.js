@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate.js";
 import PlayerCard from './PlayerCard.js';
-import WelcomeCoach from "./WelcomeCoach.js";
+import NoData from "../../wraps/NoData.js";
 
 const Players = () => {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
-    const [result, setResult] = useState([]);
+    const [result, setResult] = useState();
     const [playerElement, setPlayerElemement] = useState([]);
     
     const loadPlayers = async ( isMounted, controller ) => {
         try {
-            const response = await axiosPrivate.get('/api/searchPlayer', {
+            const response = await axiosPrivate.get('/api/searchTeam/assigned', {
                 signal: controller.signal,
             });
             isMounted && setResult(response.data);
@@ -20,7 +20,7 @@ const Players = () => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
-                <div>Error.... unable to load players</div>
+                <div>Error.... unable to load</div>
             )};
         }  
     };
@@ -42,17 +42,16 @@ const Players = () => {
 
     useEffect (() =>{
         setPlayerElemement(
-            result.map(player => { 
+            result.map(({ players }) => players.map((player) => { 
                 return <PlayerCard key={player._id} player={player} handleClick={handleClick} />
-            })
+            }))
         ) 
     },[result])
 
     
     return ( 
         <>
-            <WelcomeCoach />
-            <div className="flex gap-4 flex-wrap justify-center my-8">{playerElement}</div>
+            {!result ? <NoData /> : <div className="flex gap-4 flex-wrap justify-center my-8">{playerElement}</div>}
         </>
     )
 }

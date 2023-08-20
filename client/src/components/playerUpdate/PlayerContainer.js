@@ -1,11 +1,11 @@
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.js";
 import { useState, useEffect } from "react";
-import FlexContainer from "../../wraps/FlexContainer.js";
+import NoData from "../../wraps/NoData.js";
 import PlayerList from "./PlayerList.js";
 
 const PlayerContainer = () => {
     const axiosPrivate = useAxiosPrivate();
-    const [result, setResult] = useState([]);
+    const [result, setResult] = useState();
     
     const loadPlayers = async () => {
         let isMounted = true;
@@ -22,7 +22,7 @@ const PlayerContainer = () => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
-                <div>Error.... unable to load players</div>
+                <div>Error.... unable to load</div>
             )}
         };
     };
@@ -33,11 +33,7 @@ const PlayerContainer = () => {
 
    return (
         <>
-            <FlexContainer padding="p-2">
-                <PlayerList result={result}/>
-            </FlexContainer>
-            
-                
+            {!result ? <NoData /> : <PlayerList result={result} />}
         </>
     )
 }

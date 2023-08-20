@@ -6,7 +6,7 @@ import Button from "../../wraps/Button";
 import OverlayBox from "../../wraps/OverlayBox"
 
 const CreateEmergency = () => {
-    const { formId, setFormId } = useForm();
+    const { setFormId } = useForm();
     const [formData, setFormData] = useState({
         name: "", street: "", city: "", state: "", zipcode: "",
         phoneMain: "", phoneAlt: "", relationship: ""
@@ -27,10 +27,9 @@ const CreateEmergency = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('api/createEmergency',
-                JSON.stringify({
-                    formData
-                }),
+            const res = await axios.post('api/createEmergency',{
+                    formData: formData
+                },
                 {
                 headers: {
                     "Content-Type": 'application/json'
@@ -96,14 +95,13 @@ const CreateEmergency = () => {
             <Button id="createEmergency" handleClick={handleSubmit}>Create Contact</Button>
 
             {isAddAnother && <OverlayBox>
-                    <h6>Emergency Contact Added</h6>
-                    <h6>Would you like to add another?</h6>
-                    <div className="flex justify-evenly">
-                        <Button style={{ width: "w-1/4"}} id={"yes"} handleClick={addAnother}>Yes</Button>
-                        <Button style={{ width: "w-1/4"}} id={"no"} handleClick={addAnother}>No</Button>
-                    </div>
-                </OverlayBox>}
-            
+                <h6>Emergency Contact Added</h6>
+                <h6>Would you like to add another?</h6>
+                <div className="flex justify-evenly">
+                    <Button style={{ width: "w-1/4"}} id={"yes"} handleClick={addAnother}>Yes</Button>
+                    <Button style={{ width: "w-1/4"}} id={"no"} handleClick={addAnother}>No</Button>
+                </div>
+            </OverlayBox>}
         </>
     )
 }

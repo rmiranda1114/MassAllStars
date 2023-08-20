@@ -82,3 +82,9 @@
 20230812	15:36:24	6318a948-170a-47da-a446-456c2de3333e	StrictPopulateError: Cannot populate path `player` because it is not in your schema. Set the `strictPopulate` option to false to override.
 20230812	15:36:24	919a875a-ea2e-41c2-82e6-af90e5ce4baf	StrictPopulateError: Cannot populate path `player` because it is not in your schema. Set the `strictPopulate` option to false to override.
 20230812	16:55:16	bf7a2351-1593-4863-a79a-d235fea66c96	TypeError: Cannot read properties of undefined (reading 'name')
+20230815	18:07:27	92d83ccc-2e8c-48e8-954f-e3f6e3d25c20	ReferenceError: User is not defined
+20230820	11:43:15	90f6f445-9981-428a-8f4d-f35bcd4401a2	TypeError: Cannot read properties of null (reading '_id')
+20230820	11:43:54	cf5d5b4f-d80a-4991-8e58-173565809d64	TypeError: Cannot read properties of undefined (reading 'name')
+20230820	11:45:10	c6f0179e-9224-4d74-9a84-0e92ec803843	TypeError: Cannot read properties of undefined (reading 'name')
+20230820	11:48:01	950a3be6-9abc-4be6-8469-446e45b4770f	ReferenceError: User is not defined
+20230820	12:31:09	16fc09f2-a036-4a80-b6c5-506eaf633309	ReferenceError: User is not defined

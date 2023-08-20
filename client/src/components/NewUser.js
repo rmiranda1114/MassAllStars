@@ -61,16 +61,13 @@ const NewUser = () => {
             setErrMsg("Invalid Entry");
             return;
         }
-        let isMounted = true;
-        const controller = new AbortController();
         try{
             let response = await axiosPrivate.post('/api/createCoach', {
-                signal: controller.signal,
                 name: name,
                 email: email,
                 password: pwd 
             });
-            if (isMounted) {
+            if (response.status == 200) {
                 setName('');
                 setEmail('');
                 setPwd('');
@@ -90,10 +87,7 @@ const NewUser = () => {
             }
             errRef.current.focus();
         }
-        return() => {
-            isMounted = false;
-            controller.abort();
-        }
+        
     }
 
 

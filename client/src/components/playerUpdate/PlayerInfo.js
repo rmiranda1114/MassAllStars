@@ -45,7 +45,6 @@ const PlayerInfo = ({ player }) => {
             </div>
         </>
     )
-
 }
 
 export default PlayerInfo;

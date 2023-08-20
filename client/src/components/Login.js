@@ -28,11 +28,10 @@ function Login () {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const res = await axios.post('api/login',
-                JSON.stringify({
+            const res = await axios.post('api/login',{
                     email: loginData.email,
                     password: loginData.password
-                }),
+                },
                 {
                 headers: {
                     "Content-Type": 'application/json',
@@ -46,7 +45,7 @@ function Login () {
                 accesstoken: res.data.accessToken,
                 admin: res.data.admin
             })
-            res.data.admin ? navigate('../coach') : navigate('../players');
+            res.data.admin ? navigate('../coaches') : navigate('../players');
         }catch (err){
             if (!err?.response) {
                 setErrMsg('No Server Response');

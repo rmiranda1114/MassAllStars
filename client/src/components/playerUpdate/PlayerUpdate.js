@@ -30,9 +30,8 @@ const PlayerUpdate = () => {
         const controller = new AbortController();
         try{
             const response = await axiosPrivate.post('/api/searchPlayerId', {
-                signal: controller.signal,
                 playerId: playerId
-            });
+            }, { signal: controller.signal });
             isMounted && setPlayer(response.data);
             return() => {
                 isMounted = false;
@@ -41,7 +40,7 @@ const PlayerUpdate = () => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
-                <div>Error.... unable to load teams</div>
+                <div>Error.... unable to load</div>
             )};
         }  
     };
@@ -61,7 +60,7 @@ const PlayerUpdate = () => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
-                <div>Error.... unable to load teams</div>
+                <div>Error.... unable to load</div>
             )};
         }  
     };
@@ -93,8 +92,11 @@ const PlayerUpdate = () => {
     return (
         <FlexContainer>
             {player && <div className="border border-black p-4 mb-4 flex-col">
-                <PlayerInfo player={player}/>
-                <div className="flex-col mt-8 mb-1 gap-1" onClick={(e) => navigate(`../teams/${player.teamId}`)}>
+                <div className="mb-4">
+                    <PlayerInfo player={player}/>
+                </div>
+                <hr />
+                <div className="flex-col my-6 gap-1" onClick={(e) => navigate(`../teams/${player.teamId}`)}>
                     <div>
                         <div className="basis-1/6">Team: </div>
                         <div className="basis-1/3 bg-white rounded-md px-2">{player.team}</div>

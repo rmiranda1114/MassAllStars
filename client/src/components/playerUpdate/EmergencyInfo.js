@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { FiEdit, FiTrash } from "react-icons/fi";
 
 const EmergencyInfo = ({ emergencyId }) => {
     const axiosPrivate = useAxiosPrivate();
@@ -11,9 +10,8 @@ const EmergencyInfo = ({ emergencyId }) => {
         const controller = new AbortController();
         try {
             const response = await axiosPrivate.post(`/api/searchEmergencyId`, {
-                signal: controller.signal,
                 emergencyId: emergencyId
-            },);
+            }, { signal: controller.signal });
             isMounted && setResult(response.data);
             return() => {
                 isMounted = false;
@@ -22,14 +20,14 @@ const EmergencyInfo = ({ emergencyId }) => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
-                <div>Error.... unable to load parent</div>
+                <div>Error.... unable to load</div>
             )};
         }  
     };
     
     useEffect(() => {
         loadEmergency();
-    }, []);
+    },[]);
 
     return (
         <>
@@ -58,18 +56,17 @@ const EmergencyInfo = ({ emergencyId }) => {
                     <div  className="basis-1/3 bg-white rounded-md px-2">{result[0].address.zipcode}</div>
                 </div>
                 <div className="flex my-1">
-                    <div className="basis-1/3">Phone Number: </div>
+                    <div className="basis-1/3">Phone: </div>
                     <div className="basis-2/3 bg-white rounded-md px-2">{result[0].phoneMain}</div>
                 </div>
                 <div className="flex my-1">
-                    <div className="basis-1/3">Alt. Number: </div>
+                    <div className="basis-1/3">Alt. Phone: </div>
                     <div className="basis-2/3 bg-white rounded-md px-2">{result[0].phoneAlt}</div>
                 </div>
                 
             </div>
         }</>
     )
-
 }
 
 export default EmergencyInfo;

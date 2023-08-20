@@ -7,6 +7,7 @@ import Button from "../../wraps/Button.js";
 import Input from "../../wraps/Input.js";
 import VerifyDelete from "../../wraps/VerifyDelete.js";
 import { BsTrash3 } from "react-icons/bs"
+import NoData from "../../wraps/NoData.js";
 
 const Teams = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -69,24 +70,21 @@ const Teams = () => {
                 <Button style={{ width: "w-1/2" }} handleClick={handleAddTeam}>Add Team</Button>
             </FlexContainer>
 
-            {!result ? <div>No Data Available</div> : 
-            <div className=" flex justify-center flex-wrap gap-4">
+            {!result ? <NoData /> : 
+            <div className="flex justify-center flex-wrap gap-4">
             {result.map((team) => {
-                return <FlexCard key={team._id} id={team._id} width="w-40" onClick={(e) => navigate(`./${e.target.id}`)}>
-                    <div className="flex justify-end p-2 hover:cursor-pointer" id={team._id} >
-                        <BsTrash3  onClick={(e) => setDeleteTeam(e.target.parentElement.id)}/>
-                    </div>
-                    <div className="flex justify-center text-xl font-medium hover:cursor-pointer" id={team._id} onClick={(e) => navigate(`./${e.target.id}`)}>
-                        {team.name}
+                return <FlexCard key={team._id} id={team._id}>
+                    <div className="flex justify-between items-center">
+                        <div className="text-xl font-medium hover:cursor-pointer w-full" id={team._id} onClick={(e) => navigate(`./${e.target.id}`)}>{team.name}</div>
+                        <Button id={team._id} width="w-1/4" handleClick={(e) => setDeleteTeam(e.target.id)} >Delete</Button>
                     </div>
                 </FlexCard>
             })}
+            
             </div>}
 
-            
-
             {deleteTeam && <VerifyDelete item="team" handleYes={handleDelete} handleNo={() => setDeleteTeam("")}/>}
-
+                    
         </div>
     )
 }

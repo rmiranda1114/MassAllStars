@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { FiEdit, FiTrash } from "react-icons/fi";
 
 const ParentInfo = ({ parentId }) => {
     const axiosPrivate = useAxiosPrivate();
@@ -11,9 +10,8 @@ const ParentInfo = ({ parentId }) => {
         const controller = new AbortController();
         try {
             const response = await axiosPrivate.post(`/api/searchParentId`, {
-                signal: controller.signal,
                 parentId: parentId
-            },);
+            },{ signal: controller.signal });
             isMounted && setResult(response.data);
             return() => {
                 isMounted = false;
@@ -22,7 +20,7 @@ const ParentInfo = ({ parentId }) => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
-                <div>Error.... unable to load parent</div>
+                <div>Error.... unable to load</div>
             )};
         }  
     };
@@ -54,18 +52,17 @@ const ParentInfo = ({ parentId }) => {
                     <div  className="basis-1/3 bg-white rounded-md px-2">{result.address.zipcode}</div>
                 </div>
                 <div className="flex my-1">
-                    <div className="basis-1/3">Phone Number: </div>
+                    <div className="basis-1/3">Phone: </div>
                     <div className="basis-2/3 bg-white rounded-md px-2">{result.phoneMain}</div>
                 </div>
                 <div className="flex my-1">
-                    <div className="basis-1/3">Alt. Number: </div>
+                    <div className="basis-1/3">Alt. Phone: </div>
                     <div className="basis-2/3 bg-white rounded-md px-2">{result.phoneAlt}</div>
                 </div>
                 
             </div>
         }</>
     )
-
 }
 
 export default ParentInfo;

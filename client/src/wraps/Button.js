@@ -4,7 +4,7 @@ const Button = ({
     padding = 'p-2',
     rounded = 'rounded-lg',
     margin = 'my-2',
-    hover = 'hover:cursor-pointer`',
+    hover = 'hover:cursor-pointer',
     otherStyle = "",
     children,
     handleClick,
@@ -12,7 +12,7 @@ const Button = ({
      ...props }) => {
 
     return (
-        <div className={`${width} ${bg} ${padding} ${rounded} ${margin} ${hover} ${otherStyle} font-medium text-center m-auto` } 
+        <div className={`${width} ${bg} ${padding} ${rounded} ${margin} ${hover} ${otherStyle} font-medium text-center` } 
             onClick={handleClick} id={id} {...props}>
             {children}
         </div>

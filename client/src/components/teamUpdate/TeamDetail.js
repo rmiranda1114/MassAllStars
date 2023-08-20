@@ -6,6 +6,7 @@ import FlexContainer from "../../wraps/FlexContainer";
 import FlexCard from "../../wraps/FlexCard";
 import Label from "../../wraps/Label";
 import Button from "../../wraps/Button";
+import NoData from "../../wraps/NoData";
 
 const TeamDetail = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -32,7 +33,7 @@ const TeamDetail = () => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
-                <div>Error.... unable to load team</div>
+                <div>Error.... unable to load</div>
             )};
         }  
     };
@@ -44,7 +45,12 @@ const TeamDetail = () => {
 
     const coachOptions = coaches.map((coach) => {return <option key={coach._id} value={coach._id}>{coach.name}</option>})
 
-   
+    const handleClick = (e) => {
+        e.preventDefault();
+        loadCoachOptions();
+        setIsAssign(true);
+    }
+
     const handleAssign = async (e) => {
         e.preventDefault();
         const res = await axiosPrivate.post('/api/updateTeam', {
@@ -52,19 +58,28 @@ const TeamDetail = () => {
             headCoach: headCoach,
             asstCoach: asstCoach
         });
-        if (res.status == 201) {
+        if (res.status === 201) {
             setTeam(res.data);
             setIsAssign(false);
         }
     };
 
+    const removePlayer = async (e) => {
+        e.preventDefault();
+        const res = await axiosPrivate.post('/api/updateTeam/removePlayer', {
+            teamId: teamId,
+            playerId: e.target.id
+        });
+        setTeam(res.data);
+    }
+
     useEffect(() => {
         loadTeam();
-    }, []);
+    },[]);
 
     return (
-        <>{!team ? <div>Loading...</div> : <div>
-            <FlexContainer>
+        <>
+            {!team ? <NoData /> : <FlexContainer>
                 <h2 className="text-center text-xl font-semibold underline">{team.name}</h2>
                 {isAssign ? <div>
                     <div>
@@ -83,7 +98,8 @@ const TeamDetail = () => {
                                 {coachOptions}
                         </select>
                     </div>
-                    <Button style={{ width: "w-1/2" }} handleClick={handleAssign}>Submit</Button>
+                    <Button handleClick={handleAssign}>Submit</Button>
+                    <Button handleClick={() => setIsAssign(false)}>Cancel</Button>
                 </div> : <div>
                     <div>
                         <h5 className="block text-sm font-medium">Head Coach</h5>
@@ -97,15 +113,16 @@ const TeamDetail = () => {
                             {team.asstCoach ? team.asstCoach.name : "Not Assigned"}
                         </div>
                     </div>
-                    <Button style={{ width: "w-1/2" }} handleClick={() => setIsAssign(true)}>Assign</Button>    
+                    <Button handleClick={handleClick}>Assign</Button>    
                 </div>}
-            </FlexContainer>
-            <div className="flex flex-wrap justify-center gap-4">
+            </FlexContainer>}
+            {!team ? <NoData /> : <div className="flex flex-wrap justify-center gap-4">
                 {team.players.map((player) => { return <FlexCard key={player._id} id={player._id} onClick={(e) => navigate(`../find/${player._id}`)}>
-                    <PlayerInfo player={player} /></FlexCard> })}
-            </div>
-            
-        </div>}</>
+                    <PlayerInfo player={player} />
+                    <Button id={player._id} onClick={removePlayer}>Remove</Button>
+                </FlexCard> })}
+            </div>}
+        </>
     )
 
 }

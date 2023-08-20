@@ -8,12 +8,12 @@ const authorize = require('../middleware/authorize.js');
 router.post('/', authorize, async (req, res, next)=> {
     try{
         const { name, email, password } = req.body;
-        //Uses Joi to validate information
-        const { error, value } = validate({ name, email, password });
-        if (error) return res.status(400).json({ message: 'Unable to validate' });
+        // //Uses Joi to validate information
+        // const { error, value } = validate({ name, email, password });
+        // if (error) return res.status(400).json({ message: 'Unable to validate' });
 
         // Checks if coach already exsist.
-        let coach = await User.findOne({ email: email });
+        let coach = await Coach.findOne({ email: email });
         if (coach) return res.status(409).json({ message: 'Email is already registered.' });
 
         //Use bcrypt to hash password

@@ -19,10 +19,9 @@ const CreatePlayer = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('api/createPlayer',
-                JSON.stringify({
-                    formData
-                }),
+            const res = await axios.post('api/createPlayer',{
+                    formData: formData
+                },
                 {
                 headers: {
                     "Content-Type": 'application/json'
@@ -54,11 +53,10 @@ const CreatePlayer = () => {
 
     const finalize = async () => {
         try{
-            const res = await axios.post('api/finishCreate',
-                JSON.stringify({
+            const res = await axios.post('api/finishCreate',{
                     parent: formId.parentId,
                     kids: formId.playerId
-                }),
+                },
                 {
                     headers: {
                         "Content-Type": 'application/json'
@@ -145,19 +143,18 @@ const CreatePlayer = () => {
             <Button id="createEmergency" handleClick={handleSubmit}>Create Player</Button>
 
             {isAddAnother && <OverlayBox>
-                    <h6 >Player Added</h6>
-                    <h6>Would you like to add another?</h6>
-                    <div className="flex justify-evenly">
-                        <Button style={{ width: "w-1/4"}} id={"yes"} handleClick={addAnother}>Yes</Button>
-                        <Button style={{ width: "w-1/4"}} id={"no"} handleClick={addAnother}>No</Button>
-                    </div>
-                </OverlayBox>}
+                <h6 >Player Added</h6>
+                <h6>Would you like to add another?</h6>
+                <div className="flex justify-evenly">
+                    <Button style={{ width: "w-1/4"}} id={"yes"} handleClick={addAnother}>Yes</Button>
+                    <Button style={{ width: "w-1/4"}} id={"no"} handleClick={addAnother}>No</Button>
+                </div>
+            </OverlayBox>}
 
             {isComplete && <OverlayBox>
-                    <h6 className=" text-xl font-semibold my-4">Registration Complete</h6>
-                    <h6 className="text-logoRed my-4">Page will reset in 10 seconds...</h6>
-                </OverlayBox>}
-            
+                <h6 className=" text-xl font-semibold my-4">Registration Complete</h6>
+                <h6 className="text-logoRed my-4">Page will reset in 10 seconds...</h6>
+            </OverlayBox>}
         </>
     )
 }

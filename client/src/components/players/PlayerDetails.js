@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../hooks/useAxiosPrivate.js";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate.js";
 import PlayerDetailsCard from "./PlayerDetailsCard.js";
-import FlexContainer from "../wraps/FlexContainer.js";
-import Button from "../wraps/Button.js";
+import FlexContainer from "../../wraps/FlexContainer.js";
+import Button from "../../wraps/Button.js";
 
 const PlayerDetails = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -26,7 +26,7 @@ const PlayerDetails = () => {
         } catch (err) {
             if (err.code === 'ERR_CANCELED') {
             return (
-                <div>Error.... unable to load player</div>
+                <div>Error.... unable to load</div>
             )};
         }  
     };

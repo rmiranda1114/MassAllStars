@@ -1,5 +1,5 @@
-import FlexCard from "../wraps/FlexCard";
-import Button from "../wraps/Button";
+import FlexCard from "../../wraps/FlexCard";
+import Button from "../../wraps/Button";
 
 const PlayerCard = ({ player, handleClick }) => {
 

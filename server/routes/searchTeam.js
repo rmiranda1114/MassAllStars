@@ -15,4 +15,15 @@ router.get('/', authorize, async (req, res, next) => {
     }
 });
 
+router.get('/assigned', authorize, async (req, res, next) => {
+    try{
+        let teams = await Team.find({ headCoach: req._id })
+        .populate('players');
+        res.status(200).send(teams);
+    }
+    catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;
