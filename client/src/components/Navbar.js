@@ -35,16 +35,18 @@ function Navbar () {
 
     return (
       <main>
-        <div className="w-full h-24 bg-logoRed px-4 flex justify-between items-center">
-          <div className="h-full" onClick={() => { setMenuToggle(false); navigate("/"); }}>
-            <img className=" max-h-full" src="../images/MASLogo.jpg"/>
-          </div>
-          <nav className="hidden sm:flex text-lg gap-6 font-semibold">
-            <NavLinks user={user} handleLogout={handleLogout} style={"hover:text-white"} />
-          </nav>
-          <div className="sm:hidden text-xl" onClick={() => menuClick()}>
-            {!menuToggle ? <GiHamburgerMenu /> : <MdClose />}
-          </div>
+        <div className="w-screen bg-logoRed h-24 sm:h-40 flex justify-center">
+          <div className="w-full max-w-7xl flex justify-between items-center px-4">
+            <div className="h-24 sm:h-36" onClick={() => { setMenuToggle(false); navigate("/"); }}>
+              <img className="h-full" src="../images/MASLogo.jpg"/>
+            </div>
+            <nav className="hidden sm:flex text-lg gap-6 font-semibold">
+              <NavLinks user={user} handleLogout={handleLogout} style={"hover:text-white"} />
+            </nav>
+            <div className="sm:hidden text-xl" onClick={() => menuClick()}>
+              {!menuToggle ? <GiHamburgerMenu /> : <MdClose />}
+            </div>
+          </div>          
         </div>
         <div onClick={() => setMenuToggle(false)}>
           <Outlet/>
