@@ -12,6 +12,9 @@
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.1",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
     "uuid": "^9.0.0"
   },
   "name": "server",
